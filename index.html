@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div style="height:200px; width:200px;background-color:#222;" ></div>
+	<script>
+		$('div').click(function(){
+			$.get('http://localhost:9000/',{},function(data){
+				$('body').html(data);
+				alert(document.cookie);
+			});
+		});
+	</script>
+</body>
+</html>
