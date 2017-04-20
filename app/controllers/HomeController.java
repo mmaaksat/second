@@ -1,13 +1,10 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import models.Assets;
-import models.OilFields;
+import models.Asset;
+import models.OilField;
 import play.libs.Json;
-import play.mvc.*;
-
-import java.util.List;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 
 /**
@@ -23,12 +20,11 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        session("a","Like");
-        OilFields oilField = new OilFields();
+        session("a", "Like");
+        OilField oilField = new OilField();
         //oilField.setOilField("Kawagan",(long)2);
-        Assets asset = new Assets();
         //User user = new User("manas","kazak", (long) 1,1,1);
-        return ok(Json.toJson(Json.toJson(asset.getAssets())));
+        return ok(Json.toJson(Asset.find.all()));
     }
 
 }

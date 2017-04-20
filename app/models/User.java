@@ -1,44 +1,54 @@
 package models;
 
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
-import javax.persistence.*;
+import com.avaje.ebean.annotation.EnumValue;
 import play.data.validation.Constraints;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 
 
 @Entity
-@Table(name = "user")
-public class User extends Model{
+@Table(name = "users")
+public class User extends Model {
+
+    public static Find<Long, User> find = new Find<Long, User>() {
+    };
 
     @Id
-    private Long id;
+    public Long id;
 
     @Column
     @Constraints.Required
-    private String login;
+    public String login;
 
     @Column
-    private String password;
+    public String password;
 
-    @Column
-    private Long roleId;
+    //    public Long roleId;
+//  Enum is better to understand in coding, better guessing what was role with id 3
+    @Enumerated(EnumType.STRING)
+    public Role role = Role.USER;
 
-    @ManyToOne(optional=false)
-    private OilFields oilFields;
+    @ManyToOne(optional = false)
+    public OilField oilField;
 
-    @ManyToOne(optional=false)
-    private Assets assets;
+    @ManyToOne(optional = false)
+    public Asset asset;
 
-    /*public User(String login, String password, Long roleId, int oilFields, int assets){
+    /*public User(String login, String password, Long roleId, int oilField, int asset){
         this.login = login;
         this.password = password;
         this.roleId = roleId;
-        this.oilFields = oilFields;
-        this.assets = assets;
+        this.oilField = oilField;
+        this.asset = asset;
         Ebean.save(this);
     }*/
+
+    public enum Role {
+        @EnumValue("1")
+        ADMIN,
+        @EnumValue("2")
+        USER
+    }
 
 }

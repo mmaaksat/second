@@ -3,10 +3,10 @@
 
 # --- !Ups
 
-create table assets (
+create table asset (
   id                            bigint auto_increment not null,
   name                          varchar(255),
-  constraint pk_assets primary key (id)
+  constraint pk_asset primary key (id)
 );
 
 create table oil_fields (
@@ -21,7 +21,7 @@ create table oil_fields (
 create table scenarios (
   id                            bigint auto_increment not null,
   number                        varchar(255),
-  oil_fields_id                 bigint not null,
+  oil_field_id                  bigint not null,
   tax                           bigint,
   cost                          bigint,
   money_from_bank               bigint,
@@ -33,14 +33,15 @@ create table scenarios (
   constraint pk_scenarios primary key (id)
 );
 
-create table user (
+create table users (
   id                            bigint auto_increment not null,
   login                         varchar(255),
   password                      varchar(255),
-  role_id                       bigint,
-  oil_fields_id                 bigint not null,
-  assets_id                     bigint not null,
-  constraint pk_user primary key (id)
+  role                          integer,
+  oil_field_id                  bigint not null,
+  asset_id                      bigint not null,
+  constraint ck_users_role check ( role in ('1','2')),
+  constraint pk_users primary key (id)
 );
 
 create table year_records (
@@ -58,17 +59,17 @@ create table year_records (
   constraint pk_year_records primary key (id)
 );
 
-alter table oil_fields add constraint fk_oil_fields_asset_id foreign key (asset_id) references assets (id) on delete restrict on update restrict;
+alter table oil_fields add constraint fk_oil_fields_asset_id foreign key (asset_id) references asset (id) on delete restrict on update restrict;
 create index ix_oil_fields_asset_id on oil_fields (asset_id);
 
-alter table scenarios add constraint fk_scenarios_oil_fields_id foreign key (oil_fields_id) references oil_fields (id) on delete restrict on update restrict;
-create index ix_scenarios_oil_fields_id on scenarios (oil_fields_id);
+alter table scenarios add constraint fk_scenarios_oil_field_id foreign key (oil_field_id) references oil_fields (id) on delete restrict on update restrict;
+create index ix_scenarios_oil_field_id on scenarios (oil_field_id);
 
-alter table user add constraint fk_user_oil_fields_id foreign key (oil_fields_id) references oil_fields (id) on delete restrict on update restrict;
-create index ix_user_oil_fields_id on user (oil_fields_id);
+alter table users add constraint fk_users_oil_field_id foreign key (oil_field_id) references oil_fields (id) on delete restrict on update restrict;
+create index ix_users_oil_field_id on users (oil_field_id);
 
-alter table user add constraint fk_user_assets_id foreign key (assets_id) references assets (id) on delete restrict on update restrict;
-create index ix_user_assets_id on user (assets_id);
+alter table users add constraint fk_users_asset_id foreign key (asset_id) references asset (id) on delete restrict on update restrict;
+create index ix_users_asset_id on users (asset_id);
 
 alter table year_records add constraint fk_year_records_scenario_id foreign key (scenario_id) references scenarios (id) on delete restrict on update restrict;
 create index ix_year_records_scenario_id on year_records (scenario_id);
@@ -79,25 +80,25 @@ create index ix_year_records_scenario_id on year_records (scenario_id);
 alter table oil_fields drop foreign key fk_oil_fields_asset_id;
 drop index ix_oil_fields_asset_id on oil_fields;
 
-alter table scenarios drop foreign key fk_scenarios_oil_fields_id;
-drop index ix_scenarios_oil_fields_id on scenarios;
+alter table scenarios drop foreign key fk_scenarios_oil_field_id;
+drop index ix_scenarios_oil_field_id on scenarios;
 
-alter table user drop foreign key fk_user_oil_fields_id;
-drop index ix_user_oil_fields_id on user;
+alter table users drop foreign key fk_users_oil_field_id;
+drop index ix_users_oil_field_id on users;
 
-alter table user drop foreign key fk_user_assets_id;
-drop index ix_user_assets_id on user;
+alter table users drop foreign key fk_users_asset_id;
+drop index ix_users_asset_id on users;
 
 alter table year_records drop foreign key fk_year_records_scenario_id;
 drop index ix_year_records_scenario_id on year_records;
 
-drop table if exists assets;
+drop table if exists asset;
 
 drop table if exists oil_fields;
 
 drop table if exists scenarios;
 
-drop table if exists user;
+drop table if exists users;
 
 drop table if exists year_records;
 
