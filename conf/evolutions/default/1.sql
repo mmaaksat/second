@@ -12,7 +12,7 @@ create table assets (
 create table oil_fields (
   id                            bigint auto_increment not null,
   oil_fields_name               varchar(255),
-  assets_id                     bigint,
+  asset_id                      bigint not null,
   best_margin                   bigint,
   best_scenario                 varchar(255),
   constraint pk_oil_fields primary key (id)
@@ -21,7 +21,7 @@ create table oil_fields (
 create table scenarios (
   id                            bigint auto_increment not null,
   number                        varchar(255),
-  oil_fields_id                 bigint,
+  oil_fields_id                 bigint not null,
   tax                           bigint,
   cost                          bigint,
   money_from_bank               bigint,
@@ -38,15 +38,15 @@ create table user (
   login                         varchar(255),
   password                      varchar(255),
   role_id                       bigint,
-  assets_or_oil_id              bigint,
-  type                          bigint,
+  oil_fields_id                 bigint not null,
+  assets_id                     bigint not null,
   constraint pk_user primary key (id)
 );
 
 create table year_records (
   id                            bigint auto_increment not null,
   year                          bigint,
-  scenario_id                   bigint,
+  scenario_id                   bigint not null,
   credit_payments               bigint,
   field_development_cost        bigint,
   year_costs                    bigint,
@@ -58,8 +58,38 @@ create table year_records (
   constraint pk_year_records primary key (id)
 );
 
+alter table oil_fields add constraint fk_oil_fields_asset_id foreign key (asset_id) references assets (id) on delete restrict on update restrict;
+create index ix_oil_fields_asset_id on oil_fields (asset_id);
+
+alter table scenarios add constraint fk_scenarios_oil_fields_id foreign key (oil_fields_id) references oil_fields (id) on delete restrict on update restrict;
+create index ix_scenarios_oil_fields_id on scenarios (oil_fields_id);
+
+alter table user add constraint fk_user_oil_fields_id foreign key (oil_fields_id) references oil_fields (id) on delete restrict on update restrict;
+create index ix_user_oil_fields_id on user (oil_fields_id);
+
+alter table user add constraint fk_user_assets_id foreign key (assets_id) references assets (id) on delete restrict on update restrict;
+create index ix_user_assets_id on user (assets_id);
+
+alter table year_records add constraint fk_year_records_scenario_id foreign key (scenario_id) references scenarios (id) on delete restrict on update restrict;
+create index ix_year_records_scenario_id on year_records (scenario_id);
+
 
 # --- !Downs
+
+alter table oil_fields drop foreign key fk_oil_fields_asset_id;
+drop index ix_oil_fields_asset_id on oil_fields;
+
+alter table scenarios drop foreign key fk_scenarios_oil_fields_id;
+drop index ix_scenarios_oil_fields_id on scenarios;
+
+alter table user drop foreign key fk_user_oil_fields_id;
+drop index ix_user_oil_fields_id on user;
+
+alter table user drop foreign key fk_user_assets_id;
+drop index ix_user_assets_id on user;
+
+alter table year_records drop foreign key fk_year_records_scenario_id;
+drop index ix_year_records_scenario_id on year_records;
 
 drop table if exists assets;
 

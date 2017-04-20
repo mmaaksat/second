@@ -19,8 +19,8 @@ public class YearRecords extends Model{
     @Constraints.Required
     private Long year;
 
-    @Column
-    private Long scenarioId;
+    @ManyToOne(optional=false)
+    private Scenarios scenario;
 
     @Column
     private Long creditPayments;

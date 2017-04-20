@@ -5,6 +5,7 @@ import com.avaje.ebean.Model;
 import javax.persistence.*;
 import play.data.validation.Constraints;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,13 +26,19 @@ public class User extends Model{
     @Column
     private Long roleId;
 
-    @Column
-    private Long assetsOrOilId;
+    @ManyToOne(optional=false)
+    private OilFields oilFields;
 
-    @OneToMany(mappedBy="user")
-    List<OilFields> oilFields;
+    @ManyToOne(optional=false)
+    private Assets assets;
 
-    @Column
-    private Long type;
+    /*public User(String login, String password, Long roleId, int oilFields, int assets){
+        this.login = login;
+        this.password = password;
+        this.roleId = roleId;
+        this.oilFields = oilFields;
+        this.assets = assets;
+        Ebean.save(this);
+    }*/
 
 }

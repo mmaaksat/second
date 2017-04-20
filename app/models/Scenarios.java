@@ -19,8 +19,8 @@ public class Scenarios extends Model{
     @Constraints.Required
     private String number;
 
-    @Column
-    private Long oilFieldsId;
+    @ManyToOne(optional=false)
+    private OilFields oilFields;
 
     @Column
     private Long tax;
@@ -45,5 +45,8 @@ public class Scenarios extends Model{
 
     @Column
     private String scenarioMargin;
+
+    @OneToMany(mappedBy="scenario")
+    private List<YearRecords> yearRecords;
 }
 
