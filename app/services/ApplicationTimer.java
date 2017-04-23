@@ -63,6 +63,7 @@ public class ApplicationTimer {
             });
 
         }
+
 //        if(User.find.findRowCount()==0){
 //            Arrays.asList("").forEach(temp->{
 //                User user = new User();

@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class YearRecord extends Model {
     @Constraints.Required
     public Long year;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public Scenario scenario;
 

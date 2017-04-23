@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Scenario extends Model {
     @Column
     public String scenarioMargin;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "scenario")
     public List<YearRecord> yearRecords;
 }

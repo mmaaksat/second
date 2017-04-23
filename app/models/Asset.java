@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import play.data.validation.Constraints;
 
@@ -12,8 +13,7 @@ import java.util.List;
 @Table(name = "asset")
 public class Asset extends Model {
 
-    public static Find<Long, Asset> find = new Find<Long, Asset>() {
-    };
+    public static Find<Long, Asset> find = new Find<Long, Asset>() {};
 
     @Id
     public Long id;
@@ -22,11 +22,12 @@ public class Asset extends Model {
     @Constraints.Required
     public String name;
 
+    @JsonBackReference
     @JsonIgnoreProperties("asset")
     @OneToMany(mappedBy = "asset")
-    public List<User> user;
+    public List<AssetsUser> assetsUsers;
 
-    @JsonIgnoreProperties("asset")
+    @JsonBackReference
     @OneToMany(mappedBy = "asset")
     public List<OilField> oilFields;
 }

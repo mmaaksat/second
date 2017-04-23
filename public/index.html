@@ -6,8 +6,11 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div id = "a" style="height:200px; width:200px;background-color:#222;" ></div>
-	<div id = "b"  style="height:200px; width:200px;background-color:#555;" ></div>
+	<form action="/login" method="POST">
+		<input type="text" name="login">
+		<input type="password" name="password">
+		<input type="submit" name="submit">
+	</form>
 	<script>
 		$('#a').click(function(){
 			$.post('http://localhost:9000/a',{},function(data){

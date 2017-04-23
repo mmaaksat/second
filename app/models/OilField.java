@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
@@ -17,13 +18,11 @@ public class OilField extends Model {
     @Id
     public Long id;
 
-    @OneToMany(mappedBy = "oilField")
-    public List<User> user;
-
-    @Column
+    @Column(name = "oil_fields_name")
     @Constraints.Required
     public String oilFieldsName;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public Asset asset;
 
@@ -33,7 +32,12 @@ public class OilField extends Model {
     @Column
     public String bestScenario;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "oilField")
-    public List<Scenario> scenarios;
+    public List<Scenario> scenario;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "oilField")
+    public List<OilUsers> oilUsers;
 
 }
