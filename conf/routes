@@ -18,6 +18,19 @@ PUT     /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.Scenar
 GET     /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.get(aid:Long,oid:Long,sid:Long)
 DELETE  /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.remove(aid:Long,oid:Long,sid:Long)
 #
+GET     /api/assets/:aid/oil_fields/:oid/members            controllers.MembersController.table(aid:Long,oid:Long)
+POST    /api/assets/:aid/oil_fields/:oid/members            controllers.MembersController.add(aid:Long,oid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid/members/:mid       controllers.MembersController.edit(aid:Long,oid:Long,mid:Long)
+GET     /api/assets/:aid/oil_fields/:oid/members/:mid       controllers.MembersController.get(aid:Long,oid:Long,mid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid/members/:mid       controllers.MembersController.remove(aid:Long,oid:Long,mid:Long)
+#
+GET     /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year            controllers.YearController.table(aid:Long,oid:Long)
+POST    /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year            controllers.YearController.add(aid:Long,oid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year/:yid       controllers.YearController.edit(aid:Long,oid:Long,sid:Long,yid:Long)
+GET     /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year/:yid       controllers.YearController.get(aid:Long,oid:Long,sid:Long,yid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year/:yid       controllers.YearController.remove(aid:Long,oid:Long,sid:Long,yid:Long)
+#
+
 
 #
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

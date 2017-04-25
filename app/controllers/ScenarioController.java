@@ -3,6 +3,7 @@ package controllers;
 import models.Asset;
 import models.OilField;
 import models.Scenario;
+import models.YearRecord;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.Json;
@@ -37,6 +38,12 @@ public class ScenarioController extends Controller {
             Scenario newScen = formScen.get();
             newScen.oilField = oilField;
             newScen.save();
+            for(Long i = formScen.get().startYear;i <= formScen.get().endYear;i++){
+                YearRecord yearRecord = new YearRecord();
+                yearRecord.year = i;
+                yearRecord.scenario = newScen;
+                yearRecord.save();
+            }
             return ok(Json.toJson("Ok"));
         }else{
             return ok(Json.toJson("Fail"));
@@ -46,14 +53,46 @@ public class ScenarioController extends Controller {
     public Result edit(Long aid,Long oid,Long sid){
         if("" != session("user_id")){
             Form<Scenario> formScen = formFactory.form(Scenario.class).bindFromRequest();
-            OilField oilField = OilField.find.where().eq("id",sid).findUnique();
-            Scenario scenario = formScen.get();
-            scenario.oilField = oilField;
+            Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
+            scenario.number = formScen.get().number;
+            scenario.tax = formScen.get().tax;
+            List<YearRecord> list = YearRecord.find.where().eq("scenario",scenario).findList();
+            for(int i = 0; i <= scenario.endYear - scenario.startYear; i++){
+                list.get(i).delete();
+            }
+            scenario.endYear = formScen.get().endYear;
+            scenario.startYear = formScen.get().startYear;
+            scenario.inflation = formScen.get().inflation;
+            scenario.moneyFromBank = formScen.get().moneyFromBank;
             scenario.update();
+            for(Long i = formScen.get().startYear;i <= formScen.get().endYear;i++){
+                YearRecord yearRecord = new YearRecord();
+                yearRecord.year = i;
+                yearRecord.scenario = scenario;
+                yearRecord.save();
+            }
             return ok(Json.toJson("Ok"));
         }else{
             return ok(Json.toJson("Fail"));
         }
     }
 
+    public Result remove(Long aid,Long oid,Long sid){
+        if("" != session("user_id")){
+            Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
+            scenario.delete();
+            return ok(Json.toJson("Ok"));
+        }else{
+            return ok(Json.toJson("Fail"));
+        }
+    }
+
+    public Result get(Long aid,Long oid,Long sid){
+        if("" != session("user_id")){
+            Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
+            return ok(Json.toJson(scenario));
+        }else{
+            return ok(Json.toJson("Fail"));
+        }
+    }
 }

@@ -26,7 +26,7 @@ public class Scenario extends Model {
     public OilField oilField;
 
     @Column
-    public Long tax, cost, moneyFromBank, inflation, startYear, endYear;
+    public Long tax, cost, moneyFromBank, duration, inflation, startYear, endYear;
 
     @Column
     public String scenarioMargin;

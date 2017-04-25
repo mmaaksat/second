@@ -14,6 +14,9 @@ public class YearRecord extends Model {
     @Id
     public Long id;
 
+    public static Find<Long, YearRecord> find = new Find<Long, YearRecord>() {
+    };
+
     @Column
     @Constraints.Required
     public Long year;
