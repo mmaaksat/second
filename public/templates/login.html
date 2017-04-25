@@ -1,0 +1,39 @@
+<div id="page-wrapper" style="background-color: #222222;">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1 class="page-header" style="color: white;">
+                            Вход
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <form role="form">
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="login" placeholder="Логин" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" ng-model="password" placeholder="Пароль" required>
+                            </div>
+                            <a ng-click="loginClick()" class="btn btn-primary">войти</a>
+                            <h1>{{i}}</h1>
+                            <h1>{{rs.role}}</h1>
+                            <h1>{{error}}</h1>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>

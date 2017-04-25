@@ -1,0 +1,112 @@
+ <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Admin</a>
+            </div>
+            
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith (editor) <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="asset_view.html">Asset</a>
+                    </li>
+                    <li>
+                        <a href="oil_field_view.html">Scenarios</a>
+                    </li>
+                    <li>
+                        <a href="members_view.html">Members</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Oil field name
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                Asset name
+                            </li>
+                            <li>
+                                Oil field name
+                            </li>
+                            <li>
+                                Scenarios
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <p><a href="add_scenario_view.html" class="btn btn-primary">add new scenario</a></p>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>Margin (mln $)</th>
+                                        <th>start year</th>
+                                        <th>end year</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a href="scenario_view.html">scenario 1</a></td>
+                                        <td>63.5</td>
+                                        <td>2011</td>
+                                        <td>2015</td>
+                                        <td>
+                                            <a href="edit_scenario_view.html" class="btn btn-primary">Edit</a>
+                                            <a href="delete_scenario_view.html" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#">scenario 1</a></td>
+                                        <td>63.5</td>
+                                        <td>2011</td>
+                                        <td>2015</td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary" disabled>Edit</a>
+                                            <a href="#" class="btn btn-danger" disabled>Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>

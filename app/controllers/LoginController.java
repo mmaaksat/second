@@ -5,6 +5,7 @@ import jdk.nashorn.internal.ir.ObjectNode;
 import models.Asset;
 import models.AssetsUser;
 import models.OilField;
+import models.OilUsers;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.Json;
@@ -18,7 +19,7 @@ import java.util.List;
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
-public class HomeController extends Controller {
+public class LoginController extends Controller {
 
     @Inject
     private FormFactory formFactory;
@@ -29,17 +30,31 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        AssetsUser as = new AssetsUser();
-        Form<AssetsUser> form = formFactory.form(AssetsUser.class).bindFromRequest();
-        as = form.get();
-        AssetsUser inAssetsUser = AssetsUser.find.where().eq("login",as.login).
-                eq("password",as.password).findUnique();
+        Form<AssetsUser> formAsset = formFactory.form(AssetsUser.class).bindFromRequest();
+        AssetsUser dataAsset = formAsset.get();
+        AssetsUser inAssetsUser = AssetsUser.find.where().eq("login",dataAsset.login).
+                eq("password",dataAsset.password).findUnique();
         if(inAssetsUser != null){
+            session("user_id", String.valueOf(inAssetsUser.id));
+            session("role_id", String.valueOf(inAssetsUser.role));
             return ok(Json.toJson(inAssetsUser));
         }else{
-            return ok(Json.toJson(as));
+            Form<OilUsers> formOil = formFactory.form(OilUsers.class).bindFromRequest();
+            OilUsers dataOil = formOil.get();
+            OilUsers inOilUsers = OilUsers.find.where().eq("login",dataOil.login)
+                    .eq("password",dataOil.password).findUnique();
+            if(inOilUsers != null){
+                session("user_id", String.valueOf(inOilUsers.id));
+                session("role_id", String.valueOf(inOilUsers.role));
+                return ok(Json.toJson(inOilUsers));
+            }else{
+                com.fasterxml.jackson.databind.node.ObjectNode redirect = Json.newObject();
+                redirect.put("role","failed");
+                return ok(Json.toJson(redirect));
+            }
+
         }
-        //session("a", "Like");
+
         //Asset myAsset = Asset.find.byId(1L);
         //OilField oilField = OilField.find.byId((long)1);
 

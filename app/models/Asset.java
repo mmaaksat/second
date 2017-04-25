@@ -22,6 +22,8 @@ public class Asset extends Model {
     @Constraints.Required
     public String name;
 
+
+
     @JsonBackReference
     @JsonIgnoreProperties("asset")
     @OneToMany(mappedBy = "asset")

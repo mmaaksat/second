@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "oil_users")
 public class OilUsers extends Model {
 
-    public static Find<Long, AssetsUser> find = new Find<Long, AssetsUser>() {
+    public static Find<Long, OilUsers> find = new Find<Long, OilUsers>() {
     };
 
     @Id

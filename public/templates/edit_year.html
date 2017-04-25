@@ -1,0 +1,95 @@
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Admin</a>
+            </div>
+            
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith (editor) <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Scenario 1
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                Asset name
+                            </li>
+                            <li>
+                                Oil field name
+                            </li>
+                            <li>
+                                Scenario 1
+                            </li>
+                            <li>
+                                2011
+                            </li>
+                            <li>
+                                Edit
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form role="form">
+
+                            <div class="form-group">
+                                <label>Credit payment ($):</label>
+                                <input class="form-control" name="credit_payment" type="number" min="0" value="0">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Oil field development cost ($):</label>
+                                <input class="form-control" name="dev_cost" type="number" min="0" value="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Oil sold (barrel):</label>
+                                <input class="form-control" name="oil_sold" type="number" min="0" value="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Oil price ($):</label>
+                                <input class="form-control" name="oil price" type="number" min="0" value="0">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="reset" class="btn btn-default">Cancel</button>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
