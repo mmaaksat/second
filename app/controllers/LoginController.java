@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import jdk.nashorn.internal.ir.ObjectNode;
 import models.Asset;
@@ -37,7 +38,12 @@ public class LoginController extends Controller {
         if(inAssetsUser != null){
             session("user_id", String.valueOf(inAssetsUser.id));
             session("role_id", String.valueOf(inAssetsUser.role));
-            return ok(Json.toJson(inAssetsUser));
+            Asset asset = Asset.find.where().eq("assetsUser",inAssetsUser).findUnique();
+            com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
+            response.put("role", String.valueOf(inAssetsUser.role));
+            response.put("asset_id", String.valueOf(asset.id));
+            response.put("oil_field_id", "failed");
+            return ok(Json.toJson(response));
         }else{
             Form<OilUsers> formOil = formFactory.form(OilUsers.class).bindFromRequest();
             OilUsers dataOil = formOil.get();
@@ -46,11 +52,19 @@ public class LoginController extends Controller {
             if(inOilUsers != null){
                 session("user_id", String.valueOf(inOilUsers.id));
                 session("role_id", String.valueOf(inOilUsers.role));
-                return ok(Json.toJson(inOilUsers));
+                OilField oilField = OilField.find.where().eq("oilUsers",inOilUsers).findUnique();
+                Asset asset = Asset.find.where().eq("oilField",oilField).findUnique();
+                com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
+                response.put("role", String.valueOf(inOilUsers.role));
+                response.put("oil_field_id", String.valueOf(oilField.id));
+                response.put("asset_id", String.valueOf(asset.id));
+                return ok(Json.toJson(response));
             }else{
-                com.fasterxml.jackson.databind.node.ObjectNode redirect = Json.newObject();
-                redirect.put("role","failed");
-                return ok(Json.toJson(redirect));
+                com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
+                response.put("role", "failed");
+                response.put("oil_field_id", "failed");
+                response.put("asset_id", "failed");
+                return ok(Json.toJson(response));
             }
 
         }

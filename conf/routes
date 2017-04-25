@@ -5,15 +5,21 @@
 # An example controller showing a sample home page
 POST    /api/login                  controllers.LoginController.index
 # An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
 
-GET     /api/asset_table            controllers.AssetController.index
-POST    /api/add_oil                controllers.AssetController.addOil
-POST    /api/edit_oil               controllers.AssetController.editOil
+GET     /api/assets/:aid/oil_fields/                          controllers.OilFieldController.table(aid:Long)
+POST    /api/assets/:aid/oil_fields/                          controllers.OilFieldController.add(aid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid                      controllers.OilFieldController.edit(aid:Long,oid:Long)
+GET     /api/assets/:aid/oil_fields/:oid                      controllers.OilFieldController.get(aid:Long,oid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid                      controllers.OilFieldController.remove(aid:Long,oid:Long)
+#
+GET     /api/assets/:aid/oil_fields/:oid/scenarios            controllers.ScenarioController.table(aid:Long,oid:Long)
+POST    /api/assets/:aid/oil_fields/:oid/scenarios            controllers.ScenarioController.add(aid:Long,oid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.edit(aid:Long,oid:Long,sid:Long)
+GET     /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.get(aid:Long,oid:Long,sid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.remove(aid:Long,oid:Long,sid:Long)
+#
 
-
+#
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Map static resources from the /public folder to the /asset URL path

@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -35,14 +36,7 @@ public class AssetsUser extends Model {
     @ManyToOne(optional = false)
     public Asset asset;
 
-    /*public User(String login, String password, Long roleId, int oilField, int asset){
-        this.login = login;
-        this.password = password;
-        this.roleId = roleId;
-        this.oilField = oilField;
-        this.asset = asset;
-        Ebean.save(this);
-    }*/
+
 
     public enum Role {
         @EnumValue("1")

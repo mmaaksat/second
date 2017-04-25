@@ -40,4 +40,22 @@ public class OilField extends Model {
     @OneToMany(mappedBy = "oilField")
     public List<OilUsers> oilUsers;
 
+
+    public void creatOilField( String oilFieldsName, Asset asset){
+        this.oilFieldsName = oilFieldsName;
+        this.asset = asset;
+        this.save();
+    }
+    public void editOilField(Long id, String oilFieldsName, Asset asset){
+        OilField oilField = OilField.find.where().eq("id",id).findUnique();
+        oilField.oilFieldsName = oilFieldsName;
+        oilField.asset = asset;
+        oilField.save();
+    }
+    public void deleteOilField(Long id){
+        OilField oilField = OilField.find.where().eq("id",id).findUnique();
+        oilField.delete();
+    }
+
+
 }

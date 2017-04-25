@@ -15,11 +15,11 @@ oilApp.controller('AssetTableCtrl',
 });
 oilApp.controller('EditOilCtrl',
   function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+
   	$scope.add = function(){
-  		$scope.placeholder = $rootScope.oilTable.
   		$http({
 		      method: 'POST',
-		      url: '/api/add_oil',
+		      url: '/api/edit_oil/'+$routeParams.oil_id,
 		      headers: {
 			   'Content-Type': 'application/json'
 			 	},

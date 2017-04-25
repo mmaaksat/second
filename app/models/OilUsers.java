@@ -34,14 +34,6 @@ public class OilUsers extends Model {
     @ManyToOne(optional = false)
     public OilField oilField;
 
-    /*public User(String login, String password, Long roleId, int oilField, int asset){
-        this.login = login;
-        this.password = password;
-        this.roleId = roleId;
-        this.oilField = oilField;
-        this.asset = asset;
-        Ebean.save(this);
-    }*/
 
     public enum Role {
         @EnumValue("1")
