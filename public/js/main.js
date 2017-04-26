@@ -49,16 +49,16 @@ oilApp.config([
         })
         /*SCENARIO Controller*/
         /*YEAR Controller*/
-        .when('/assets/:aid/oil/:oid/oil_table',{
-          templateUrl:'assets/templates/oil_table.html',
+        .when('/assets/:aid/oil/:oid/scen/:sid/year_table',{
+          templateUrl:'assets/templates/scenarios.html',
           controller:'YearTableCtrl'
         })
         .when('/assets/:aid/oil/:oid/scen/:sid/edit_year/:yid',{
-          templateUrl:'assets/templates/add_scenario.html',
+          templateUrl:'assets/templates/edit_year.html',
           controller:'EditYearCtrl'
         })
         .when('/assets/:aid/oil/:oid/scen/:sid/year/:yid',{
-          templateUrl:'assets/templates/add_scenario.html',
+          templateUrl:'assets/templates/year.html',
           controller:'YearCtrl'
         })
         /*YEAR Controller*/
