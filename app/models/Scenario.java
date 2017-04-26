@@ -22,6 +22,7 @@ public class Scenario extends Model {
     @Constraints.Required
     public String number;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     public OilField oilField;
 

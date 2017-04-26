@@ -1,4 +1,5 @@
  <!-- Navigation -->
+
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -13,7 +14,7 @@
             
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith (editor) <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{userName}} ({{roleName}}) <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -28,63 +29,36 @@
 
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Oil field name
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                Asset name
-                            </li>
-                            <li>
-                                Oil field name
-                            </li>
-                            <li>
-                                Add new scenario
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
-
                 <div class="row">
                     <div class="col-lg-6">
                         <form role="form">
-
                             <div class="form-group">
                                 <label>Number:</label>
-                                <input class="form-control" name="name" type="number">
+                                <input class="form-control" name="name" ng-model="number" type="number" value="{{rs.number}}">
                             </div>
-                            
                             <div class="form-group">
                                 <label>Start year:</label>
-                                <input class="form-control" name="start_year" type="number" min="1900" max="3000" value="2000">
+                                <input class="form-control" name="start_year" ng-model="startYear" type="number" min="1900" max="3000" value="{{rs.startYear}}">
                             </div>
-
                             <div class="form-group">
                                 <label>End year:</label>
-                                <input class="form-control" name="end_year" type="number" min="1900" max="3000" value="2001">
+                                <input class="form-control" name="end_year" ng-model="endYear" type="number" min="1900" max="3000"  value="{{rs.endYear}}">
                             </div>
-
                             <div class="form-group">
                                 <label>Tax (%):</label>
-                                <input class="form-control" name="tax" type="number">
+                                <input class="form-control" value="{{rs.tax}}" name="tax" ng-model="tax" type="number">
                             </div>
-
+                             <h4>{{a}}</h4>
                             <div class="form-group">
                                 <label>Inflation (%):</label>
-                                <input class="form-control" name="inflation" type="number">
+                                <input class="form-control" value="{{rs.inflation}}" name="inflation" ng-model="inflation" type="number">
                             </div>
-
                             <div class="form-group">
                                 <label>Money from bank ($):</label>
-                                <input class="form-control" name="bank_money" type="number">
+                                <input class="form-control" name="bank_money" value="{{rs.moneyFromBank}}" ng-model="moneyFromBank" type="number">
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Next</button>
-                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button ng-click="add()" class="btn btn-primary">Next</button>
+                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/oil_table" class="btn btn-default">Cancel</a>
 
                         </form>
                     </div>

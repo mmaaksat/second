@@ -13,7 +13,7 @@
             
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith (editor) <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{userName}} ({{roleName}}) <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -23,7 +23,7 @@
             </ul>
             
 
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-ex1-collapse" ng-show="isAssetUser">
                 <ul class="nav navbar-nav side-nav">
                     <li>
                         <a href="asset_view.html">Asset</a>
@@ -42,30 +42,11 @@
 
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Oil field name
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                Asset name
-                            </li>
-                            <li>
-                                Oil field name
-                            </li>
-                            <li>
-                                Scenarios
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
+            
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <p><a href="add_scenario_view.html" class="btn btn-primary">add new scenario</a></p>
+                        <p><a href="#!/assets/{{assetId}}/oil/{{oilId}}/add_scen" class="btn btn-primary">add new scenario</a></p>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
@@ -77,25 +58,15 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-repeat="t in table">
                                     <tr>
-                                        <td><a href="scenario_view.html">scenario 1</a></td>
-                                        <td>63.5</td>
-                                        <td>2011</td>
-                                        <td>2015</td>
+                                        <td><a href="#!/assets/{{assetId}}/oil/{{oilId}}/scen/{{t.id}}"> {{t.number}}</a></td>
+                                        <td>{{t.scenarioMargin}}</td>
+                                        <td>{{t.startYear}}</td>
+                                        <td>{{t.endYear}}</td>
                                         <td>
-                                            <a href="edit_scenario_view.html" class="btn btn-primary">Edit</a>
-                                            <a href="delete_scenario_view.html" class="btn btn-danger">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">scenario 1</a></td>
-                                        <td>63.5</td>
-                                        <td>2011</td>
-                                        <td>2015</td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary" disabled>Edit</a>
-                                            <a href="#" class="btn btn-danger" disabled>Delete</a>
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/edit_scen/{{t.id}}" class="btn btn-primary" >Edit</a>
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/delete_scen/{{t.id}}" class="btn btn-danger" ng-disabled="!isOilFieldEditor">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>

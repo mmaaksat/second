@@ -57,20 +57,21 @@ public class ScenarioController extends Controller {
             scenario.number = formScen.get().number;
             scenario.tax = formScen.get().tax;
             List<YearRecord> list = YearRecord.find.where().eq("scenario",scenario).findList();
-            for(int i = 0; i <= scenario.endYear - scenario.startYear; i++){
-                list.get(i).delete();
+            for(int i = 0; i <= scenario.endYear.intValue() - scenario.startYear.intValue(); i++){
+                YearRecord yearRecordForDelete = list.get(i);
+                yearRecordForDelete.delete();
             }
             scenario.endYear = formScen.get().endYear;
             scenario.startYear = formScen.get().startYear;
             scenario.inflation = formScen.get().inflation;
             scenario.moneyFromBank = formScen.get().moneyFromBank;
-            scenario.update();
             for(Long i = formScen.get().startYear;i <= formScen.get().endYear;i++){
                 YearRecord yearRecord = new YearRecord();
                 yearRecord.year = i;
                 yearRecord.scenario = scenario;
                 yearRecord.save();
             }
+            scenario.update();
             return ok(Json.toJson("Ok"));
         }else{
             return ok(Json.toJson("Fail"));
@@ -80,6 +81,11 @@ public class ScenarioController extends Controller {
     public Result remove(Long aid,Long oid,Long sid){
         if("" != session("user_id")){
             Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
+            List<YearRecord> list = YearRecord.find.where().eq("scenario",scenario).findList();
+            for(int i = 0; i <= scenario.endYear - scenario.startYear; i++){
+                YearRecord yearRecordForDelete = list.get(i);
+                yearRecordForDelete.delete();
+            }
             scenario.delete();
             return ok(Json.toJson("Ok"));
         }else{

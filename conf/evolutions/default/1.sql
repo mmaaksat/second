@@ -45,6 +45,7 @@ create table scenarios (
   tax                           bigint,
   cost                          bigint,
   money_from_bank               bigint,
+  duration                      bigint,
   inflation                     bigint,
   start_year                    bigint,
   end_year                      bigint,

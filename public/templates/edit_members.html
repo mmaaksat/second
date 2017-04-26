@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -7,20 +7,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Admin</a>
+                <a class="navbar-brand" href="index.html">Admin</a>
             </div>
             
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith (editor) <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{userName}} ({{roleName}}) <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
-            </ul>
-            
+            </ul>            
         </nav>
 
         <div id="page-wrapper">
@@ -31,17 +30,17 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Oil field name
+                            {{oilFieldName}}
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                Asset name
+                                {{assetName}}
                             </li>
                             <li>
-                                Oil field name
+                                {{oilFieldName}}
                             </li>
                             <li>
-                                Edit
+                                Edit member
                             </li>
                         </ol>
                     </div>
@@ -51,10 +50,28 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <form role="form">
+                            
+                            <div class="form-group">
+                                <label>Login:</label>
+                                <input class="form-control" name="login" type="text">
+                            </div>
 
                             <div class="form-group">
-                                <label>Oil field name:</label>
-                                <input class="form-control" name="oil_field_name" type="text">
+                                <label>Password:</label>
+                                <input class="form-control" name="password" type="password">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Confirm password:</label>
+                                <input class="form-control" name="confirm_password" type="password">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select class="form-control">
+                                    <option value="1">Viewer</option>
+                                    <option value="2">Editor</option>
+                                </select>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Save</button>
@@ -70,4 +87,3 @@
             <!-- /.container-fluid -->
 
         </div>
-        <!-- /#page-wrapper -->

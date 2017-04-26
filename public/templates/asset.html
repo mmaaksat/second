@@ -1,4 +1,4 @@
-<h4>{{table}}</h4>
+
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -12,7 +12,7 @@
 
                 <ul class="nav navbar-right top-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith (asset viewer) <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{userName}} ({{roleName}}) <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="login_view.html"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -30,25 +30,11 @@
 
             <div id="page-wrapper">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">
-                                Active name
-                            </h1>
-                            <ol class="breadcrumb">
-                                <li>
-                                    Asset_name
-                                </li>
-                                <li class="active">
-                                    Oil fields
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="table-responsive">
-                                <a href="#!/add_oil" class="btn btn-primary" >Add New Oil Fields</a>
+                                <a href="#!/assets/{{assetId}}/add_oil" class="btn btn-primary">Add New Oil Fields</a>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -60,12 +46,12 @@
                                     </thead>
                                     <tbody ng-repeat="t in table">
                                         <tr>
-                                            <td><a href="#!/oil_fields/{{t.id}}">{{t.oilFieldsName}}</a></td>
+                                            <td><a href="#!/assets/{{assetId}}/oil/{{t.id}}/oil_table">{{t.oilFieldsName}}</a></td>
                                             <td>{{t.bestScenario}}</td>
                                             <td>{{t.bestMargin}}</td>
                                             <td> 
-                                                <a href="#!/edit_oil/{{t.id}}" class="btn btn-primary" >Edit</a>
-                                                <a href="#!/delete_oil/{{t.id}}" class="btn btn-danger" >Delete</a>
+                                                <a href="#!/assets/{{assetId}}/edit_oil/{{t.id}}" class="btn btn-primary">Edit</a>
+                                                <a href="#!/assets/{{assetId}}/delete_oil/{{t.id}}" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                         

@@ -32,16 +32,15 @@ public class LoginController extends Controller {
      */
     public Result index() {
         Form<AssetsUser> formAsset = formFactory.form(AssetsUser.class).bindFromRequest();
-        AssetsUser dataAsset = formAsset.get();
-        AssetsUser inAssetsUser = AssetsUser.find.where().eq("login",dataAsset.login).
-                eq("password",dataAsset.password).findUnique();
+        AssetsUser inAssetsUser = AssetsUser.find.where().eq("login",formAsset.get().login).
+                eq("password",formAsset.get().password).findUnique();
         if(inAssetsUser != null){
-            session("user_id", String.valueOf(inAssetsUser.id));
-            session("role_id", String.valueOf(inAssetsUser.role));
-            Asset asset = Asset.find.where().eq("assetsUser",inAssetsUser).findUnique();
+            session("user_id", inAssetsUser.id.toString());
+            session("role_id", inAssetsUser.role.toString());
+            Asset asset = Asset.find.where().eq("id",inAssetsUser.asset.id).findUnique();
             com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
-            response.put("role", String.valueOf(inAssetsUser.role));
-            response.put("asset_id", String.valueOf(asset.id));
+            response.put("role", inAssetsUser.role.toString());
+            response.put("asset_id", asset.id.toString());
             response.put("oil_field_id", "failed");
             return ok(Json.toJson(response));
         }else{
@@ -51,13 +50,13 @@ public class LoginController extends Controller {
                     .eq("password",dataOil.password).findUnique();
             if(inOilUsers != null){
                 session("user_id", String.valueOf(inOilUsers.id));
-                session("role_id", String.valueOf(inOilUsers.role));
-                OilField oilField = OilField.find.where().eq("oilUsers",inOilUsers).findUnique();
-                Asset asset = Asset.find.where().eq("oilField",oilField).findUnique();
+                session("role_id", inOilUsers.role.toString());
+                OilField oilField = OilField.find.where().eq("id",inOilUsers.oilField.id).findUnique();
+                Asset asset = Asset.find.where().eq("id",oilField.asset.id).findUnique();
                 com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
-                response.put("role", String.valueOf(inOilUsers.role));
-                response.put("oil_field_id", String.valueOf(oilField.id));
-                response.put("asset_id", String.valueOf(asset.id));
+                response.put("role", inOilUsers.role.toString());
+                response.put("oil_field_id", oilField.id.toString());
+                response.put("asset_id", asset.id.toString());
                 return ok(Json.toJson(response));
             }else{
                 com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
@@ -69,21 +68,7 @@ public class LoginController extends Controller {
 
         }
 
-        //Asset myAsset = Asset.find.byId(1L);
-        //OilField oilField = OilField.find.byId((long)1);
 
-        //OilField oil = OilField.find
-        //        .select("oilFieldsName")
-        //        .where().idEq(1L)
-        //        .findUnique();
-        //Asset ast = Asset.find.select("name").where().idEq(1L).findUnique();
-        //oilField.setOilField("Kawagan",(long)2);
-        //OilField.find.where().eq("asset", myAsset).findList())
-        //User user = new User("manas","kazak", (long) 1,1,1);
-        //Asset ast1 = Asset.find.where().in("id",2L).findUnique();
-        //List<OilField> field = OilField.find.where().eq("asset", myAsset).findList();
-        //System.out.println(field.get(1).oilFieldsName);
-        //return ok(Json.toJson(inAssetsUser));
     }
 
 }

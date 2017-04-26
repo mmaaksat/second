@@ -45,7 +45,7 @@ public class YearController extends Controller {
     public Result edit(Long aid,Long oid,Long sid,Long yid){
         if("" != session("user_id")){
             Form<YearRecord> formScen = formFactory.form(YearRecord.class).bindFromRequest();
-            YearRecord yearRecord = YearRecord.find.where().eq("id",sid).findUnique();
+            YearRecord yearRecord = YearRecord.find.where().eq("id",yid).findUnique();
             yearRecord.creditPayments = formScen.get().creditPayments;
             yearRecord.fieldDevelopmentCost = formScen.get().fieldDevelopmentCost;
             yearRecord.oilSold = formScen.get().oilSold;
