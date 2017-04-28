@@ -61,26 +61,26 @@
 
                             <div class="form-group">
                                 <label>Credit payment ($):</label>
-                                <input class="form-control" name="credit_payment" type="number" min="0" value="0">
+                                <input class="form-control" name="credit_payment" type="number" min="0" value="{{year.creditPayments}}" ng-model="creditPayments">
                             </div>
                             
                             <div class="form-group">
                                 <label>Oil field development cost ($):</label>
-                                <input class="form-control" name="dev_cost" type="number" min="0" value="0">
+                                <input class="form-control" name="dev_cost" type="number" min="0" value="{{year.fieldDevelopmentCost}}" ng-model="fieldDevelopmentCost">
                             </div>
 
                             <div class="form-group">
                                 <label>Oil sold (barrel):</label>
-                                <input class="form-control" name="oil_sold" type="number" min="0" value="0">
+                                <input class="form-control" name="oil_sold" type="number" min="0" value="{{year.oilSold}}" ng-model="oilSold">
                             </div>
 
                             <div class="form-group">
                                 <label>Oil price ($):</label>
-                                <input class="form-control" name="oil price" type="number" min="0" value="0">
+                                <input class="form-control" name="oil price" type="number" min="0" value="{{year.oilPrice}}" ng-model="oilPrice">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button ng-click="add()" class="btn btn-primary">Save</button>
+                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/scen/{{scenId}}/year_table" class="btn btn-default">Cancel</a>
 
                         </form>
                     </div>

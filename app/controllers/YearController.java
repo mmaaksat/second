@@ -47,6 +47,7 @@ public class YearController extends Controller {
             Form<YearRecord> formScen = formFactory.form(YearRecord.class).bindFromRequest();
             YearRecord yearRecord = YearRecord.find.where().eq("id",yid).findUnique();
             yearRecord.creditPayments = formScen.get().creditPayments;
+            yearRecord.year = formScen.get().year;
             yearRecord.fieldDevelopmentCost = formScen.get().fieldDevelopmentCost;
             yearRecord.oilSold = formScen.get().oilSold;
             yearRecord.oilPrice = formScen.get().oilPrice;

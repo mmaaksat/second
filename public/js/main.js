@@ -62,6 +62,24 @@ oilApp.config([
           controller:'YearCtrl'
         })
         /*YEAR Controller*/
+        /*MEMBERS Controller*/
+        .when('/assets/:aid/oil/:oid/mem_table',{
+          templateUrl:'assets/templates/members.html',
+          controller:'MemTableCtrl'
+        })
+        .when('/assets/:aid/oil/:oid/edit_mem/:mid',{
+          templateUrl:'assets/templates/edit_members.html',
+          controller:'EditMemCtrl'
+        })
+        .when('/assets/:aid/oil/:oid/delete_mem/:mid',{
+          templateUrl:'assets/templates/delete_members.html',
+          controller:'DeleteMemCtrl'
+        })
+        .when('/assets/:aid/oil/:oid/add_mem',{
+          templateUrl:'assets/templates/edit_members.html',
+          controller:'AddMemCtrl'
+        })
+        /*MEMBERS Controller*/
         .otherwise({
           redirectTo: '/'
         });

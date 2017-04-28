@@ -39,7 +39,7 @@ public class OilUsers extends Model {
         @EnumValue("1")
         OIL_ADMIN,
         @EnumValue("2")
-        Oil_VIEW
+        OIL_VIEW
     }
 
 }

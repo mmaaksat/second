@@ -42,47 +42,26 @@
 
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Members
-                        </h1>   
-                        <ol class="breadcrumb">
-                            <li>
-                                {{assetName}}
-                            </li>
-                            <li>
-                                Oil field 1
-                            </li>
-                            <li>
-                                Members
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
-                <a href="" class="btn btn-primary">add new</a></br></br>
+                
+                <a href="#!/assets/{{assetId}}/oil/{{oilId}}/add_mem" class="btn btn-primary">add new</a></br></br>
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>login</th>
+                                        <th>Login</th>
                                         <th>Type</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><a href="#">Member name 1</a></td>
-                                        <td>login_1</td>
-                                        <td>Viewer</td>
+                                    <tr ng-repeat="t in table">
+                                        <td><a href="#">{{t.login}}</a></td>
+                                        <td>{{t.role}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary">Edit</a>
-                                            <a href="#" class="btn btn-danger">Delete</a>
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/edit_mem/{{t.id}}" class="btn btn-primary">Edit</a>
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/delete_mem/{{t.id}}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>
