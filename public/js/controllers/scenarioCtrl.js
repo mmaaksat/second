@@ -1,7 +1,11 @@
 oilApp.controller('ScenTableCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
+
+  	var rols = ["ASSET_ADMIN","ASSET_VIEW","OIL_ADMIN","OIL_VIEW"];
+  	checkAuth.check(rols);
+
   	$http({
 		      method: 'GET',
 		      url: '/api/assets/'+$routeParams.aid+'/oil_fields/'+$routeParams.oid + '/scenarios',
@@ -9,15 +13,26 @@ oilApp.controller('ScenTableCtrl',
 			   'Content-Type': 'application/json'
 			 	}
 		    }).then(function successCallback(response) {
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
 		    	$scope.table = response.data;
 		    });
 });
 
 oilApp.controller('AddScenCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
 
+  	var rols = ["OIL_ADMIN"];
+  	checkAuth.check(rols);
+
+  	setTimeout(function(){
+  		$scope.role = $rootScope.user[0];
+  		$scope.login = $rootScope.user[1];
+  		$scope.$apply();
+  	},500);
+  	
   	$scope.add = function(){
   		$http({
 		      method: 'POST',
@@ -34,6 +49,7 @@ oilApp.controller('AddScenCtrl',
 			 	inflation:$scope.inflation
 			 }
 		    }).then(function successCallback(response) {
+		    	
 		    	$scope.table = response.data;
 		    	$location.path('/assets/' + $routeParams.aid + '/oil/'+$routeParams.oid + '/oil_table');
 		});
@@ -43,10 +59,13 @@ oilApp.controller('AddScenCtrl',
 
 
 oilApp.controller('EditScenCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.scenId = $routeParams.sid;
+
+  	var rols = ["OIL_ADMIN"];
+  	checkAuth.check(rols);
 
   	$http({
 		      method: 'GET',
@@ -55,6 +74,8 @@ oilApp.controller('EditScenCtrl',
 			   'Content-Type': 'application/json'
 			 	}
 		    }).then(function successCallback(response) {
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
 		    	$scope.rs = response.data;
 	});
 
@@ -81,10 +102,13 @@ oilApp.controller('EditScenCtrl',
 });
 
 oilApp.controller('DeleteScenCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.scenId = $routeParams.sid;
+
+  	var rols = ["OIL_ADMIN"];
+  	checkAuth.check(rols);
 
   	$http({
 		      method: 'GET',
@@ -93,6 +117,8 @@ oilApp.controller('DeleteScenCtrl',
 			   'Content-Type': 'application/json'
 			 	}
 		    }).then(function successCallback(response) {
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
 		    	$scope.rs = response.data;
 	});
 

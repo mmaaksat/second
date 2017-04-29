@@ -1,7 +1,11 @@
 oilApp.controller('MemTableCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
+
+  	var rols = ["ASSET_ADMIN","ASSET_VIEW"];
+  	var user = checkAuth.check(rols);
+  	
 
   	$http({
 		      method: 'GET',
@@ -15,12 +19,20 @@ oilApp.controller('MemTableCtrl',
 });
 
 oilApp.controller('AddMemCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.memId = $routeParams.mid;
 
+  	var rols = ["ASSET_ADMIN"];
+  	checkAuth.check(rols);
 
+  	setTimeout(function(){
+  		$scope.role = $rootScope.user[0];
+  		$scope.login = $rootScope.user[1];
+  		$scope.$apply();
+  	},500);
+  	
   	$scope.add = function(){
   		$http({
 		      method: 'POST',
@@ -43,10 +55,13 @@ oilApp.controller('AddMemCtrl',
 
 
 oilApp.controller('EditMemCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.memId = $routeParams.mid;
+
+  	var rols = ["ASSET_ADMIN"];
+  	checkAuth.check(rols);
 
   	$http({
 		      method: 'GET',
@@ -78,10 +93,13 @@ oilApp.controller('EditMemCtrl',
 });
 
 oilApp.controller('DeleteMemCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.scenId = $routeParams.mid;
+
+  	var rols = ["ASSET_ADMIN"];
+  	checkAuth.check(rols);
 
   	$http({
 		      method: 'GET',

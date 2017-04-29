@@ -20,7 +20,8 @@ public class YearController extends Controller {
     private FormFactory formFactory;
 
     public Result table(Long aid, Long oid,Long sid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilView();
+        if("" != session("user_id") && role){
             Scenario scenario = Scenario.find.where().eq("id", sid).findUnique();
             List<YearRecord> list = YearRecord.find.where().eq("scenario",scenario).findList();
             return ok(Json.toJson(list));
@@ -30,7 +31,8 @@ public class YearController extends Controller {
     }
 
     public Result add(Long aid,Long oid,Long sid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilAdmin();
+        if("" != session("user_id") && role){
             Form<YearRecord> formYear = formFactory.form(YearRecord.class).bindFromRequest();
             Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
             YearRecord yearRecord = formYear.get();
@@ -43,7 +45,8 @@ public class YearController extends Controller {
     }
 
     public Result edit(Long aid,Long oid,Long sid,Long yid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilAdmin();
+        if("" != session("user_id") && role){
             Form<YearRecord> formScen = formFactory.form(YearRecord.class).bindFromRequest();
             YearRecord yearRecord = YearRecord.find.where().eq("id",yid).findUnique();
             yearRecord.creditPayments = formScen.get().creditPayments;
@@ -59,7 +62,8 @@ public class YearController extends Controller {
     }
 
     public Result remove(Long aid,Long oid,Long sid,Long yid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilAdmin();
+        if("" != session("user_id") && role){
             YearRecord yearRecord = YearRecord.find.where().eq("id",yid).findUnique();
             yearRecord.delete();
             return ok(Json.toJson("Ok"));
@@ -69,7 +73,8 @@ public class YearController extends Controller {
     }
 
     public Result get(Long aid,Long oid,Long sid,Long yid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilView();
+        if("" != session("user_id") && role){
             YearRecord yearRecord = YearRecord.find.where().eq("id",yid).findUnique();
             return ok(Json.toJson(yearRecord));
         }else{

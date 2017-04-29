@@ -22,7 +22,8 @@ public class ScenarioController extends Controller {
     private FormFactory formFactory;
 
     public Result table(Long aid,Long oid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilView();
+        if("" != session("user_id") && role){
             OilField oilField = OilField.find.where().eq("id", oid).findUnique();
             List<Scenario> list = Scenario.find.where().eq("oilField",oilField).findList();
             return ok(Json.toJson(list));
@@ -32,7 +33,8 @@ public class ScenarioController extends Controller {
     }
 
     public Result add(Long aid,Long oid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilAdmin();
+        if("" != session("user_id") && role){
             Form<Scenario> formScen = formFactory.form(Scenario.class).bindFromRequest();
             OilField oilField = OilField.find.where().eq("id",oid).findUnique();
             Scenario newScen = formScen.get();
@@ -51,7 +53,8 @@ public class ScenarioController extends Controller {
     }
 
     public Result edit(Long aid,Long oid,Long sid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilAdmin();
+        if("" != session("user_id") && role){
             Form<Scenario> formScen = formFactory.form(Scenario.class).bindFromRequest();
             Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
             scenario.number = formScen.get().number;
@@ -79,7 +82,8 @@ public class ScenarioController extends Controller {
     }
 
     public Result remove(Long aid,Long oid,Long sid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilAdmin();
+        if("" != session("user_id") && role){
             Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
             List<YearRecord> list = YearRecord.find.where().eq("scenario",scenario).findList();
             for(int i = 0; i <= scenario.endYear - scenario.startYear; i++){
@@ -94,7 +98,8 @@ public class ScenarioController extends Controller {
     }
 
     public Result get(Long aid,Long oid,Long sid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleOilView();
+        if("" != session("user_id") && role){
             Scenario scenario = Scenario.find.where().eq("id",sid).findUnique();
             return ok(Json.toJson(scenario));
         }else{

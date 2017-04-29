@@ -35,13 +35,14 @@ public class LoginController extends Controller {
         AssetsUser inAssetsUser = AssetsUser.find.where().eq("login",formAsset.get().login).
                 eq("password",formAsset.get().password).findUnique();
         if(inAssetsUser != null){
-            session("user_id", inAssetsUser.id.toString());
+            session("user_id", inAssetsUser.login.toString());
             session("role_id", inAssetsUser.role.toString());
             Asset asset = Asset.find.where().eq("id",inAssetsUser.asset.id).findUnique();
             com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
             response.put("role", inAssetsUser.role.toString());
             response.put("asset_id", asset.id.toString());
             response.put("oil_field_id", "failed");
+            response.put("user_id", inAssetsUser.login.toString());
             return ok(Json.toJson(response));
         }else{
             Form<OilUsers> formOil = formFactory.form(OilUsers.class).bindFromRequest();
@@ -49,7 +50,7 @@ public class LoginController extends Controller {
             OilUsers inOilUsers = OilUsers.find.where().eq("login",dataOil.login)
                     .eq("password",dataOil.password).findUnique();
             if(inOilUsers != null){
-                session("user_id", String.valueOf(inOilUsers.id));
+                session("user_id", String.valueOf(inOilUsers.login));
                 session("role_id", inOilUsers.role.toString());
                 OilField oilField = OilField.find.where().eq("id",inOilUsers.oilField.id).findUnique();
                 Asset asset = Asset.find.where().eq("id",oilField.asset.id).findUnique();
@@ -57,6 +58,7 @@ public class LoginController extends Controller {
                 response.put("role", inOilUsers.role.toString());
                 response.put("oil_field_id", oilField.id.toString());
                 response.put("asset_id", asset.id.toString());
+                response.put("user_id", inOilUsers.login.toString());
                 return ok(Json.toJson(response));
             }else{
                 com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
@@ -70,5 +72,106 @@ public class LoginController extends Controller {
 
 
     }
+
+    public Result getRole(){
+        if("" != session("user_id") && "" != session("role_id").toString()){
+            com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
+            response.put("role", session("role_id").toString());
+            response.put("user_id", session("user_id").toString());
+            return ok(Json.toJson(response));
+        }else{
+            return ok(Json.toJson("Fail"));
+        }
+
+    }
+
+    public Result logout(){
+        if("" != session("user_id") ){
+            session().clear();
+            return ok(Json.toJson("OK"));
+        }else{
+            return ok(Json.toJson("Fail"));
+        }
+
+    }
+
+    public static boolean roleAssetAdmin(){
+        boolean role = false;
+        switch (session("role_id").toString()){
+            case "ASSET_ADMIN":
+                role = true;
+                break;
+            case "ASSET_VIEW":
+                role = false;
+                break;
+            case "OIL_ADMIN":
+                role = false;
+                break;
+            case "OIL_VIEW":
+                role = false;
+                break;
+        }
+        return role;
+    }
+
+    public static boolean roleAsset(){
+        boolean role = false;
+        switch (session("role_id").toString()){
+            case "ASSET_ADMIN":
+                role = true;
+                break;
+            case "ASSET_VIEW":
+                role = true;
+                break;
+            case "OIL_ADMIN":
+                role = false;
+                break;
+            case "OIL_VIEW":
+                role = false;
+                break;
+        }
+        return role;
+    }
+
+    public static boolean roleOilAdmin(){
+        boolean role = false;
+        switch (session("role_id").toString()){
+            case "ASSET_ADMIN":
+                role = false;
+                break;
+            case "ASSET_VIEW":
+                role = false;
+                break;
+            case "OIL_ADMIN":
+                role = true;
+                break;
+            case "OIL_VIEW":
+                role = false;
+                break;
+        }
+        return role;
+    }
+
+    public static boolean roleOilView(){
+        boolean role = false;
+        switch (session("role_id").toString()){
+            case "ASSET_ADMIN":
+                role = true;
+                break;
+            case "ASSET_VIEW":
+                role = true;
+                break;
+            case "OIL_ADMIN":
+                role = true;
+                break;
+            case "OIL_VIEW":
+                role = true;
+                break;
+        }
+        return role;
+    }
+
+
+
 
 }

@@ -15,6 +15,7 @@ oilApp.controller('LoginCtrl',
 		        $scope.rs = response.data;
 		        if($scope.rs.role != "failed"){
 		        	$rootScope.role = $scope.rs.role;
+		        	$rootScope.login = $scope.rs.user_id;
 		        	if($scope.rs.oil_field_id == "failed"){
 		        		$location.path( "/assets/" + $scope.rs.asset_id + "/asset_table" );
 		        	} else {
@@ -27,4 +28,17 @@ oilApp.controller('LoginCtrl',
 			    }	
 			});
     }
+});
+
+oilApp.controller('LogoutCtrl',
+  function($scope, $http, $location) {
+  		$http({
+		      method: 'GET',
+		      url: '/api/logout',
+		      headers: {
+			   'Content-Type': 'application/json'
+			 	}
+		    }).then(function successCallback(response) {
+		    	$location.path("/");
+		    });
 });

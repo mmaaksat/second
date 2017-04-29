@@ -80,8 +80,65 @@ oilApp.config([
           controller:'AddMemCtrl'
         })
         /*MEMBERS Controller*/
+        .when('/logout',{
+          templateUrl:'assets/templates/login.html',
+          controller:'LogoutCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });
   }
 ]);
+
+
+
+
+oilApp.service('checkAuth',function($rootScope,$http,$location,$q){
+
+  var self = this;
+
+
+  this.check = function(rols){
+    access = false;
+    var deferred = $q.defer();
+    if($rootScope.role != undefined){
+      for (var i = rols.length - 1; i >= 0; i--) {
+          if(rols[i] == $rootScope.role){
+            access = true;
+            $rootScope.user = [$rootScope.role,$rootScope.login];
+          }  
+      }
+    }else{
+      $http({
+          method: 'GET',
+          url: '/api/role',
+          headers: {
+         'Content-Type': 'application/json'
+        }
+        }).then(function successCallback(response) {
+              var user = response.data;
+              if(user != "Fail"){
+                for (var i = rols.length - 1; i >= 0; i--) {
+                  if(rols[i] == user.role){
+                    access = true;
+                  }
+                }
+                deferred.resolve(user);
+              }
+              if(access == false){
+                $location.path("/");
+              }
+        });
+    }
+    var obj = deferred.promise;
+    obj.then(function(value) { 
+      var user = value;
+      $rootScope.user = [user.role,user.user_id];
+    });
+  }
+
+
+
+});
+
+

@@ -1,8 +1,11 @@
 oilApp.controller('YearTableCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.scenId = $routeParams.sid;
+
+  	var rols = ["ASSET_ADMIN","ASSET_VIEW","OIL_ADMIN","OIL_VIEW"];
+  	checkAuth.check(rols);
 
   	$http({
 		      method: 'GET',
@@ -25,11 +28,14 @@ oilApp.controller('YearTableCtrl',
 });
 
 oilApp.controller('YearCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.scenId = $routeParams.sid;
 	$scope.yearId = $routeParams.yid;
+
+	var rols = ["ASSET_ADMIN","ASSET_VIEW","OIL_ADMIN","OIL_VIEW"];
+  	checkAuth.check(rols);
 
 
   	$http({
@@ -39,17 +45,21 @@ oilApp.controller('YearCtrl',
 			   'Content-Type': 'application/json'
 			 	}
 		    }).then(function successCallback(response) {
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
 		    	$scope.year = response.data;
 	});
 });
 
 oilApp.controller('EditYearCtrl',
-  function($scope, $http, $location,$rootScope,$window,$location,$routeParams) {
+  function($scope, $http, $location,$rootScope,$window,$location,$routeParams,checkAuth) {
   	$scope.assetId = $routeParams.aid;
   	$scope.oilId = $routeParams.oid;
   	$scope.scenId = $routeParams.sid;
 	$scope.yearId = $routeParams.yid;
 
+	var rols = ["OIL_ADMIN"];
+  	checkAuth.check(rols);
 
   	$http({
 		      method: 'GET',
@@ -58,6 +68,8 @@ oilApp.controller('EditYearCtrl',
 			   'Content-Type': 'application/json'
 			 	}
 		    }).then(function successCallback(response) {
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
 		    	$scope.year = response.data;
 	});
 

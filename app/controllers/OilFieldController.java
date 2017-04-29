@@ -21,7 +21,8 @@ public class OilFieldController extends Controller{
     private FormFactory formFactory;
 
     public Result table(Long aid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleAsset();
+        if("" != session("user_id") && role){
             Asset asset = Asset.find.where().eq("id", aid).findUnique();
             List<OilField> list = OilField.find.where().eq("asset",asset).findList();
             return ok(Json.toJson(list));
@@ -32,7 +33,8 @@ public class OilFieldController extends Controller{
 
 
     public Result add(Long aid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleAssetAdmin();
+        if("" != session("user_id") && role){
             Form<OilField> formOil = formFactory.form(OilField.class).bindFromRequest();
             Asset asset = Asset.find.where().eq("id", aid).findUnique();
             OilField newOil = formOil.get();
@@ -45,7 +47,8 @@ public class OilFieldController extends Controller{
     }
 
     public Result edit(Long aid,Long oid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleAssetAdmin();
+        if("" != session("user_id") && role){
             Form<OilField> formOil = formFactory.form(OilField.class).bindFromRequest();
             OilField oilField = OilField.find.where().eq("id",oid).findUnique();
             oilField.oilFieldsName = formOil.get().oilFieldsName;
@@ -57,7 +60,8 @@ public class OilFieldController extends Controller{
     }
 
     public Result remove(Long aid,Long oid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleAssetAdmin();
+        if("" != session("user_id") && role){
             OilField oilField = OilField.find.where().eq("id",oid).findUnique();
             oilField.delete();
             return ok(Json.toJson("Ok"));
@@ -67,7 +71,8 @@ public class OilFieldController extends Controller{
     }
 
     public Result get(Long aid,Long oid){
-        if("" != session("user_id")){
+        boolean role = LoginController.roleAsset();
+        if("" != session("user_id") && role){
             OilField oilField = OilField.find.where().eq("id",oid).findUnique();
             return ok(Json.toJson(oilField));
         }else{

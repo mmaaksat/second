@@ -5,6 +5,8 @@
 GET     /                           controllers.Assets.versioned(path="/public", file="index.html")
 # An example controller showing a sample home page
 POST    /api/login                                            controllers.LoginController.index
+GET     /api/logout                                           controllers.LoginController.logout
+GET     /api/role                                             controllers.LoginController.getRole
 # An example controller showing how to use dependency injection
 
 GET     /api/assets/:aid/oil_fields/                          controllers.OilFieldController.table(aid:Long)
