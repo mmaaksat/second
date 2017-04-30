@@ -16,6 +16,14 @@ oilApp.controller('AssetTableCtrl',
 		    	$scope.table = response.data;
 		    	$scope.role = $rootScope.user[0];
   				$scope.login = $rootScope.user[1];
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
+
 		    });
 
 });
@@ -27,7 +35,15 @@ oilApp.controller('AddOilCtrl',
   	$scope.a = 1;
   	setTimeout(function(){
   		$scope.role = $rootScope.user[0];
-  		$scope.login = $rootScope.user[1];
+  				$scope.login = $rootScope.user[1];
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
+
   		$scope.$apply();
   	},500);
   	$scope.add = function(){
@@ -37,7 +53,7 @@ oilApp.controller('AddOilCtrl',
 		      headers: {
 			   'Content-Type': 'application/json'
 			 	},
-		      data: { oilFieldsName: $scope.oilFieldsName }
+		      data: { oilFieldsName: $scope.rs.oilFieldsName }
 		    }).then(function successCallback(response) {
 		        $location.path("/assets/" + $routeParams.aid + "/asset_table");
 		});
@@ -57,8 +73,16 @@ oilApp.controller('EditOilCtrl',
 		 	}
 	    }).then(function successCallback(response) {
 	    	$scope.role = $rootScope.user[0];
-  			$scope.login = $rootScope.user[1];
-	        $scope.placeholder = response.data.oilFieldsName;
+  				$scope.login = $rootScope.user[1];
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
+
+	        $scope.rs = response.data;
 	});
 	$scope.assetId = $routeParams.aid;
   	$scope.add = function(){
@@ -68,7 +92,7 @@ oilApp.controller('EditOilCtrl',
 		      headers: {
 			   'Content-Type': 'application/json'
 			 	},
-		      data: { oilFieldsName: $scope.oilFieldsName }
+		      data: { oilFieldsName: $scope.rs.oilFieldsName }
 		    }).then(function successCallback(response) {
 		        $location.path("/assets/" + $routeParams.aid + "/asset_table");
 		});
@@ -89,7 +113,15 @@ oilApp.controller('DeleteOilCtrl',
 		 	}
 	    }).then(function successCallback(response) {
 	    	$scope.role = $rootScope.user[0];
-  			$scope.login = $rootScope.user[1];
+  				$scope.login = $rootScope.user[1];
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
+
 	        $scope.oilFieldsName = response.data.oilFieldsName;
 	});
 	$scope.assetId = $routeParams.aid;

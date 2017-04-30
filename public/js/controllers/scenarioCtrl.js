@@ -14,6 +14,14 @@ oilApp.controller('ScenTableCtrl',
 			 	}
 		    }).then(function successCallback(response) {
 		    	$scope.role = $rootScope.user[0];
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		if($scope.role == "ASSET_ADMIN"){ $scope.admin = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
   				$scope.login = $rootScope.user[1];
 		    	$scope.table = response.data;
 		    });
@@ -30,8 +38,16 @@ oilApp.controller('AddScenCtrl',
   	setTimeout(function(){
   		$scope.role = $rootScope.user[0];
   		$scope.login = $rootScope.user[1];
-  		$scope.$apply();
-  	},500);
+  		
+  			if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    }
+		   	$scope.$apply();
+  		},500);
   	
   	$scope.add = function(){
   		$http({
@@ -41,12 +57,12 @@ oilApp.controller('AddScenCtrl',
 			   'Content-Type': 'application/json'
 			 	},
 			 data:{
-			 	number:$scope.number,
-			 	startYear:$scope.startYear,
-			 	endYear:$scope.endYear,
-			 	tax:$scope.tax,
-			 	moneyFromBank:$scope.moneyFromBank,
-			 	inflation:$scope.inflation
+			 	number:$scope.rs.number,
+				 	startYear:$scope.rs.startYear,
+				 	endYear:$scope.rs.endYear,
+				 	tax:$scope.rs.tax,
+				 	moneyFromBank:$scope.rs.moneyFromBank,
+				 	inflation:$scope.rs.inflation
 			 }
 		    }).then(function successCallback(response) {
 		    	
@@ -77,9 +93,17 @@ oilApp.controller('EditScenCtrl',
 		    	$scope.role = $rootScope.user[0];
   				$scope.login = $rootScope.user[1];
 		    	$scope.rs = response.data;
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
 	});
 
   	$scope.add = function(){
+  		
   		$http({
 		      method: 'PUT',
 		      url: '/api/assets/'+$routeParams.aid+'/oil_fields/'+$routeParams.oid + '/scenarios/'+$routeParams.sid,
@@ -87,12 +111,12 @@ oilApp.controller('EditScenCtrl',
 			   'Content-Type': 'application/json'
 			 	},
 				 data:{
-				 	number:$scope.number,
-				 	startYear:$scope.startYear,
-				 	endYear:$scope.endYear,
-				 	tax:$scope.tax,
-				 	moneyFromBank:$scope.moneyFromBank,
-				 	inflation:$scope.inflation
+				 	number:$scope.rs.number,
+				 	startYear:$scope.rs.startYear,
+				 	endYear:$scope.rs.endYear,
+				 	tax:$scope.rs.tax,
+				 	moneyFromBank:$scope.rs.moneyFromBank,
+				 	inflation:$scope.rs.inflation
 				 }
 		    }).then(function successCallback(response) {
 		    	$location.path('/assets/' + $routeParams.aid + '/oil/'+$routeParams.oid + '/oil_table');
@@ -120,6 +144,13 @@ oilApp.controller('DeleteScenCtrl',
 		    	$scope.role = $rootScope.user[0];
   				$scope.login = $rootScope.user[1];
 		    	$scope.rs = response.data;
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
 	});
 
   	$scope.delete = function(){

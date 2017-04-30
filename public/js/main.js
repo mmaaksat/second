@@ -84,6 +84,10 @@ oilApp.config([
           templateUrl:'assets/templates/login.html',
           controller:'LogoutCtrl'
         })
+        .when('/settings',{
+          templateUrl:'assets/templates/settings.html',
+          controller:'SettingsCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });

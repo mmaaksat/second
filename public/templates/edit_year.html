@@ -1,6 +1,4 @@
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -9,51 +7,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Admin</a>
+                <a class="navbar-brand" >KazMunaiGaz</a>
             </div>
-            
+
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith (editor) <b class="caret"></b></a>
+                    <a style="cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{login}}  ({{role}}) <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="#!/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                        <li>
+                            <a href="#!/settings"><i class="fa fa-cog"></i> Settings</a>
                         </li>
                     </ul>
                 </li>
             </ul>
+
         </nav>
 
         <div id="page-wrapper">
 
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Scenario 1
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                Asset name
-                            </li>
-                            <li>
-                                Oil field name
-                            </li>
-                            <li>
-                                Scenario 1
-                            </li>
-                            <li>
-                                2011
-                            </li>
-                            <li>
-                                Edit
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
+                
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -61,22 +38,22 @@
 
                             <div class="form-group">
                                 <label>Credit payment ($):</label>
-                                <input class="form-control" name="credit_payment" type="number" min="0" value="{{year.creditPayments}}" ng-model="creditPayments">
+                                <input class="form-control" name="credit_payment" type="number" min="0" ng-value="year.creditPayments" ng-model="year.creditPayments">
                             </div>
                             
                             <div class="form-group">
                                 <label>Oil field development cost ($):</label>
-                                <input class="form-control" name="dev_cost" type="number" min="0" value="{{year.fieldDevelopmentCost}}" ng-model="fieldDevelopmentCost">
+                                <input class="form-control" name="dev_cost" type="number" min="0" ng-value="year.fieldDevelopmentCost" ng-model="year.fieldDevelopmentCost">
                             </div>
 
                             <div class="form-group">
                                 <label>Oil sold (barrel):</label>
-                                <input class="form-control" name="oil_sold" type="number" min="0" value="{{year.oilSold}}" ng-model="oilSold">
+                                <input class="form-control" name="oil_sold" type="number" min="0" value="year.oilSold" ng-model="year.oilSold">
                             </div>
 
                             <div class="form-group">
                                 <label>Oil price ($):</label>
-                                <input class="form-control" name="oil price" type="number" min="0" value="{{year.oilPrice}}" ng-model="oilPrice">
+                                <input class="form-control" name="oil price" type="number" min="0" ng-value="year.oilPrice" ng-model="year.oilPrice">
                             </div>
 
                             <button ng-click="add()" class="btn btn-primary">Save</button>

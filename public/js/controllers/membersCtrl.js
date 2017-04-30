@@ -30,6 +30,14 @@ oilApp.controller('AddMemCtrl',
   	setTimeout(function(){
   		$scope.role = $rootScope.user[0];
   		$scope.login = $rootScope.user[1];
+		if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    	$scope.hide = false;
+		    }else{
+		    	if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    	$scope.hide = true;
+		   	}
+
   		$scope.$apply();
   	},500);
   	
@@ -41,8 +49,8 @@ oilApp.controller('AddMemCtrl',
 			   'Content-Type': 'application/json'
 			 	},
 			 data:{
-			 	login:$scope.login,
-			 	password:$scope.password,
+			 	login:$scope.rs.login,
+			 	password:$scope.rs.password,
 			 	role:$scope.role
 			 }
 		    }).then(function successCallback(response) {
@@ -70,6 +78,15 @@ oilApp.controller('EditMemCtrl',
 			   'Content-Type': 'application/json'
 			 	}
 		    }).then(function successCallback(response) {
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
 		    	$scope.rs = response.data;
 	});
 
@@ -81,8 +98,8 @@ oilApp.controller('EditMemCtrl',
 			   'Content-Type': 'application/json'
 			 	},
 			 data:{
-			 	login:$scope.login,
-			 	password:$scope.password,
+			 	login:$scope.rs.login,
+			 	password:$scope.rs.password,
 			 	role:$scope.role
 			 }
 		    }).then(function successCallback(response) {
@@ -108,6 +125,15 @@ oilApp.controller('DeleteMemCtrl',
 			   'Content-Type': 'application/json'
 			 	}
 		    }).then(function successCallback(response) {
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
+		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		    	}
 		    	$scope.rs = response.data;
 	});
 

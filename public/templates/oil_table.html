@@ -1,5 +1,4 @@
- <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -8,31 +7,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Admin</a>
+                <a class="navbar-brand" >KazMunaiGaz</a>
             </div>
-            
+
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user}} ({{role}}) <b class="caret"></b></a>
+                    <a style="cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{login}}  ({{role}}) <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="#!/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                        <li>
+                            <a href="#!/settings"><i class="fa fa-cog"></i> Settings</a>
                         </li>
                     </ul>
                 </li>
             </ul>
-            
 
+            
+            
             <div class="collapse navbar-collapse navbar-ex1-collapse" ng-show="isAssetUser">
-                <ul class="nav navbar-nav side-nav">
+                <ul class="nav navbar-nav side-nav" ng-hide="hide">
                     <li>
-                        <a href="asset_view.html">Asset</a>
+                        <a href="#!/assets/{{assetId}}/asset_table">Oil Fields</a>
                     </li>
                     <li>
-                        <a href="oil_field_view.html">Scenarios</a>
+                        <a href="#!/assets/{{assetId}}/oil/{{oilId}}/oil_table">Scenarios</a>
                     </li>
                     <li>
-                        <a href="members_view.html">Members</a>
+                        <a href="#!/assets/{{assetId}}/oil/{{oilId}}/mem_table">Members</a>
                     </li>
                 </ul>
             </div>
@@ -46,7 +49,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <p><a href="#!/assets/{{assetId}}/oil/{{oilId}}/add_scen" class="btn btn-primary">add new scenario</a></p>
+                        <p><a href="#!/assets/{{assetId}}/oil/{{oilId}}/add_scen" ng-disabled="viewer || admin" class="btn btn-primary" >add new scenario</a></p>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
@@ -65,8 +68,8 @@
                                         <td>{{t.startYear}}</td>
                                         <td>{{t.endYear}}</td>
                                         <td>
-                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/edit_scen/{{t.id}}" class="btn btn-primary" >Edit</a>
-                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/delete_scen/{{t.id}}" class="btn btn-danger" ng-disabled="!isOilFieldEditor">Delete</a>
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/edit_scen/{{t.id}}" class="btn btn-primary" ng-disabled="viewer || admin">Edit</a>
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/delete_scen/{{t.id}}" class="btn btn-danger" ng-disabled="viewer || admin">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>

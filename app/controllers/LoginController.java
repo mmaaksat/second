@@ -74,7 +74,8 @@ public class LoginController extends Controller {
     }
 
     public Result getRole(){
-        if("" != session("user_id") && "" != session("role_id").toString()){
+        System.out.println(session("user_id"));
+        if(null != session("user_id") && null != session("role_id").toString()){
             com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
             response.put("role", session("role_id").toString());
             response.put("user_id", session("user_id").toString());
@@ -85,9 +86,54 @@ public class LoginController extends Controller {
 
     }
 
+    public Result getUser(){
+        System.out.println(session("user_id"));
+        if(null != session("user_id") && null != session("role_id").toString()){
+            if(LoginController.roleAsset()){
+                AssetsUser assetsUser = AssetsUser.find.where().eq("login",session("user_id")).findUnique();
+                return ok(Json.toJson(assetsUser));
+            }else {
+                OilUsers oilUsers = OilUsers.find.where().eq("login",session("user_id")).findUnique();
+                return ok(Json.toJson(oilUsers));
+            }
+        }else{
+            return ok(Json.toJson("Fail"));
+        }
+
+    }
+
+    public Result editUser(){
+        System.out.println(session("user_id"));
+        if(null != session("user_id") && null != session("role_id").toString()){
+            if(LoginController.roleAsset()){
+                Form<AssetsUser> formAssetUser = formFactory.form(AssetsUser.class).bindFromRequest();
+                AssetsUser assetsUser = AssetsUser.find.where().eq("login",session("user_id")).findUnique();
+                assetsUser.login = formAssetUser.get().login;
+                assetsUser.password = formAssetUser.get().password;
+                assetsUser.update();
+                session().remove("user_id");
+                session("user_id",assetsUser.login);
+                return ok(Json.toJson("ok"));
+            }else {
+                Form<OilUsers> formAssetUser = formFactory.form(OilUsers.class).bindFromRequest();
+                OilUsers oilUsers = OilUsers.find.where().eq("login",session("user_id")).findUnique();
+                oilUsers.login = formAssetUser.get().login;
+                oilUsers.password = formAssetUser.get().password;
+                oilUsers.update();
+                session().remove("user_id");
+                session("user_id",oilUsers.login);
+                return ok(Json.toJson("ok"));
+            }
+        }else{
+            return ok(Json.toJson("Fail"));
+        }
+
+    }
+
     public Result logout(){
-        if("" != session("user_id") ){
-            session().clear();
+        if(null != session("user_id") ){
+            session().remove("user_id");
+            session().remove("role_id");
             return ok(Json.toJson("OK"));
         }else{
             return ok(Json.toJson("Fail"));

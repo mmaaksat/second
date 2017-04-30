@@ -1,25 +1,29 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" >KazMunaiGaz</a>
+            </div>
 
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Admin</a>
-                </div>
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a style="cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{login}}  ({{role}}) <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#!/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                        <li>
+                            <a href="#!/settings"><i class="fa fa-cog"></i> Settings</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
 
-                <ul class="nav navbar-right top-nav">
-                    <li class="dropdown">
-                        <a style="cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{login}}   {{role}} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#!/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
                 
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
@@ -34,7 +38,7 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="table-responsive">
-                                <a href="#!/assets/{{assetId}}/add_oil" class="btn btn-primary">Add New Oil Fields</a>
+                                <a href="#!/assets/{{assetId}}/add_oil" class="btn btn-primary" ng-disabled="viewer">Add New Oil Fields</a>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -50,8 +54,8 @@
                                             <td>{{t.bestScenario}}</td>
                                             <td>{{t.bestMargin}}</td>
                                             <td> 
-                                                <a href="#!/assets/{{assetId}}/edit_oil/{{t.id}}" class="btn btn-primary">Edit</a>
-                                                <a href="#!/assets/{{assetId}}/delete_oil/{{t.id}}" class="btn btn-danger">Delete</a>
+                                                <a href="#!/assets/{{assetId}}/edit_oil/{{t.id}}" class="btn btn-primary" ng-disabled="viewer">Edit</a>
+                                                <a href="#!/assets/{{assetId}}/delete_oil/{{t.id}}" class="btn btn-danger" ng-disabled="viewer">Delete</a>
                                             </td>
                                         </tr>
                                         

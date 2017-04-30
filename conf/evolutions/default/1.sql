@@ -49,7 +49,7 @@ create table scenarios (
   inflation                     bigint,
   start_year                    bigint,
   end_year                      bigint,
-  scenario_margin               varchar(255),
+  scenario_margin               bigint,
   constraint pk_scenarios primary key (id)
 );
 

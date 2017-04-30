@@ -42,3 +42,41 @@ oilApp.controller('LogoutCtrl',
 		    	$location.path("/");
 		    });
 });
+
+oilApp.controller('SettingsCtrl',
+  function($scope, $http, $location,checkAuth,$rootScope) {
+  		
+  	var rols = ["ASSET_ADMIN","ASSET_VIEW","OIL_ADMIN","OIL_VIEW"];
+  	checkAuth.check(rols);
+  	
+
+  	$http({
+		method: 'GET',
+		url: '/api/user_info',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}).then(function successCallback(response) {
+		$scope.role = $rootScope.user[0];
+  		$scope.login = $rootScope.user[1];
+		$scope.rs = response.data;
+	});
+
+	$scope.add = function(){
+		$http({
+		      method: 'PUT',
+		      url: '/api/change_user_data',
+		      headers: {
+			   'Content-Type': 'application/json'
+			 	},
+		      data: { login: $scope.rs.login,
+		      		password:$scope.rs.password }
+		    }).then(function successCallback(response) {
+		    	history.back();
+		});
+	}
+
+
+
+});
+

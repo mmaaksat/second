@@ -30,7 +30,7 @@ public class Scenario extends Model {
     public Long tax, cost, moneyFromBank, duration, inflation, startYear, endYear;
 
     @Column
-    public String scenarioMargin;
+    public Long scenarioMargin;
 
     @JsonBackReference
     @OneToMany(mappedBy = "scenario")
