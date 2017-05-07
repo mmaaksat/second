@@ -19,7 +19,6 @@ public class OilUsers extends Model {
     public Long id;
 
     @Column
-    @Constraints.Required
     public String login;
 
     @Column

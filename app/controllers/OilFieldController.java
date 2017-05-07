@@ -33,10 +33,12 @@ public class OilFieldController extends Controller{
 
 
     public Result add(Long aid){
+
         boolean role = LoginController.roleAssetAdmin();
         if(null != session("user_id") && role){
             Form<OilField> formOil = formFactory.form(OilField.class).bindFromRequest();
             Asset asset = Asset.find.where().eq("id", aid).findUnique();
+            System.out.println(formOil.get());
             OilField newOil = formOil.get();
             newOil.asset = asset;
             newOil.save();
@@ -75,6 +77,18 @@ public class OilFieldController extends Controller{
         if(null != session("user_id") && role){
             OilField oilField = OilField.find.where().eq("id",oid).findUnique();
             return ok(Json.toJson(oilField));
+        }else{
+            return ok(Json.toJson("Fail"));
+        }
+    }
+
+    public Result getAssetName(Long aid){
+        boolean role = LoginController.roleOilView();
+        if(null != session("user_id") && role){
+            Asset asset = Asset.find.where().eq("id", aid).findUnique();
+            com.fasterxml.jackson.databind.node.ObjectNode response = Json.newObject();
+            response.put("assetName", asset.name);
+            return ok(response);
         }else{
             return ok(Json.toJson("Fail"));
         }

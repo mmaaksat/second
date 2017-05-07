@@ -14,6 +14,8 @@ oilApp.controller('YearTableCtrl',
   	var rols = ["ASSET_ADMIN","ASSET_VIEW","OIL_ADMIN","OIL_VIEW"];
   	checkAuth.check(rols);
 
+  	
+
   	$http({
 		      method: 'GET',
 		      url: '/api/assets/'+$routeParams.aid+'/oil_fields/'+$routeParams.oid + '/scenarios/'+$routeParams.sid,
@@ -32,6 +34,15 @@ oilApp.controller('YearTableCtrl',
 		    		$scope.hide = true;
 		    	}
 		    	$scope.scenarios = response.data;
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 	});
 	var deferred = $q.defer();
   	$http({
@@ -83,7 +94,15 @@ oilApp.controller('YearCtrl',
 		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
 		    		$scope.hide = true;
 		    	}
-
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 		    	$scope.year = response.data;
 	});
 });
@@ -116,6 +135,15 @@ oilApp.controller('EditYearCtrl',
 		    	}
 
 		    	$scope.year = response.data;
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 	});
 
 

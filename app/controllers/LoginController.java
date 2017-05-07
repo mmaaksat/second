@@ -13,6 +13,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -49,6 +50,7 @@ public class LoginController extends Controller {
             OilUsers dataOil = formOil.get();
             OilUsers inOilUsers = OilUsers.find.where().eq("login",dataOil.login)
                     .eq("password",dataOil.password).findUnique();
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
             if(inOilUsers != null){
                 session("user_id", String.valueOf(inOilUsers.login));
                 session("role_id", inOilUsers.role.toString());
@@ -65,6 +67,7 @@ public class LoginController extends Controller {
                 response.put("role", "failed");
                 response.put("oil_field_id", "failed");
                 response.put("asset_id", "failed");
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
                 return ok(Json.toJson(response));
             }
 

@@ -20,7 +20,6 @@ public class AssetsUser extends Model {
     public Long id;
 
     @Column
-    @Constraints.Required
     public String login;
 
     @Column

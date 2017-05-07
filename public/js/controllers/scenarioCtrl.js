@@ -24,6 +24,15 @@ oilApp.controller('ScenTableCtrl',
 		    	}
   				$scope.login = $rootScope.user[1];
 		    	$scope.table = response.data;
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 		    });
 });
 
@@ -34,10 +43,17 @@ oilApp.controller('AddScenCtrl',
 
   	var rols = ["OIL_ADMIN"];
   	checkAuth.check(rols);
-
-  	setTimeout(function(){
-  		$scope.role = $rootScope.user[0];
-  		$scope.login = $rootScope.user[1];
+  	
+  	$http({
+			method: 'GET',
+			url: '/api/assetname/'+$routeParams.aid,
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(function successCallback(response) {
+			$scope.assetname = response.data.assetName;
+			$scope.role = $rootScope.user[0];
+  			$scope.login = $rootScope.user[1];
   		
   			if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
 		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
@@ -46,9 +62,9 @@ oilApp.controller('AddScenCtrl',
 		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
 		    		$scope.hide = true;
 		    }
-		   	$scope.$apply();
-  		},500);
-  	
+	});
+
+
   	$scope.add = function(){
   		$http({
 		      method: 'POST',
@@ -100,6 +116,15 @@ oilApp.controller('EditScenCtrl',
 		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
 		    		$scope.hide = true;
 		    	}
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 	});
 
   	$scope.add = function(){
@@ -151,6 +176,15 @@ oilApp.controller('DeleteScenCtrl',
 		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
 		    		$scope.hide = true;
 		    	}
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 	});
 
   	$scope.delete = function(){

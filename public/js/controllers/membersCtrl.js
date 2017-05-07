@@ -15,7 +15,19 @@ oilApp.controller('MemTableCtrl',
 			 	}
 		    }).then(function successCallback(response) {
 		    	$scope.table = response.data;
+		    	$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 		    });
+
 });
 
 oilApp.controller('AddMemCtrl',
@@ -27,19 +39,25 @@ oilApp.controller('AddMemCtrl',
   	var rols = ["ASSET_ADMIN"];
   	checkAuth.check(rols);
 
-  	setTimeout(function(){
-  		$scope.role = $rootScope.user[0];
-  		$scope.login = $rootScope.user[1];
-		if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
-		    if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
-		    	$scope.hide = false;
-		    }else{
-		    	if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
-		    	$scope.hide = true;
-		   	}
+  	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				$scope.role = $rootScope.user[0];
+  				$scope.login = $rootScope.user[1];
+				if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+		    	if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = false;
+		    	}else{
+		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+		    		$scope.hide = true;
+		   		}
 
-  		$scope.$apply();
-  	},500);
+	});
   	
   	$scope.add = function(){
   		$http({
@@ -88,6 +106,15 @@ oilApp.controller('EditMemCtrl',
 		    		$scope.hide = true;
 		    	}
 		    	$scope.rs = response.data;
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 	});
 
   	$scope.add = function(){
@@ -135,6 +162,15 @@ oilApp.controller('DeleteMemCtrl',
 		    		$scope.hide = true;
 		    	}
 		    	$scope.rs = response.data;
+		    	$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+				});
 	});
 
   	$scope.delete = function(){

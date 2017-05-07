@@ -60,6 +60,15 @@ oilApp.controller('SettingsCtrl',
 		$scope.role = $rootScope.user[0];
   		$scope.login = $rootScope.user[1];
 		$scope.rs = response.data;
+		$http({
+					method: 'GET',
+					url: '/api/assetname/'+$routeParams.aid,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+		});
 	});
 
 	$scope.add = function(){

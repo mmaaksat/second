@@ -9,6 +9,7 @@ GET     /api/logout                                           controllers.LoginC
 GET     /api/role                                             controllers.LoginController.getRole
 GET     /api/user_info                                        controllers.LoginController.getUser
 PUT     /api/change_user_data                                 controllers.LoginController.editUser
+GET     /api/assetname/:aid                                   controllers.OilFieldController.getAssetName(aid:Long)
 # An example controller showing how to use dependency injection
 
 GET     /api/assets/:aid/oil_fields/                          controllers.OilFieldController.table(aid:Long)
