@@ -20,7 +20,7 @@ public class MembersController extends Controller {
     private FormFactory formFactory;
 
     public Result table(Long aid, Long oid){
-        boolean role = LoginController.roleAssetAdmin();
+        boolean role = LoginController.roleAsset();
         if(null != session("user_id") && role){
             OilField oilField = OilField.find.where().eq("id", oid).findUnique();
             List<OilUsers> list = OilUsers.find.where().eq("oilField",oilField).findList();

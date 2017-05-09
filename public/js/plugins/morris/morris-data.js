@@ -27,6 +27,6 @@ $(function() {
     		behaveLikeLine: true,
             resize: true
         });
-    },1500)
+    },1000)
 
 });

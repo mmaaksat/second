@@ -6,7 +6,9 @@ oilApp.controller('AssetTableCtrl',
   	var rols = ["ASSET_ADMIN","ASSET_VIEW"];
   	checkAuth.check(rols);
 
-  	$http({
+  	var intervalID = setInterval(function(){
+  		if($rootScope.user != undefined){
+  			$http({
 		      method: 'GET',
 		      url: '/api/assets/'+$routeParams.aid+'/oil_fields/  ',
 		      headers: {
@@ -33,6 +35,11 @@ oilApp.controller('AssetTableCtrl',
 					    	$scope.assetname = response.data.assetName;
 				});
 		    });
+			clearInterval(intervalID);
+		}
+	},10);
+
+  	
 	
 
 });
@@ -42,24 +49,31 @@ oilApp.controller('AddOilCtrl',
   	var rols = ["ASSET_ADMIN"];
   	checkAuth.check(rols);
   	
-  	$http({
-		method: 'GET',
-		url: '/api/assetname/'+$routeParams.aid,
-		headers: {
-			'Content-Type': 'application/json'
-			}
-		}).then(function successCallback(response) {
-			$scope.assetname = response.data.assetName;
-			$scope.role = $rootScope.user[0];
-  			$scope.login = $rootScope.user[1];
-		    if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
-		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
-		    		$scope.hide = false;
-		    }else{
-		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
-		    		$scope.hide = true;
-		    }
-	});
+  	var intervalID = setInterval(function(){
+  		if($rootScope.user != undefined){
+  			$http({
+				method: 'GET',
+				url: '/api/assetname/'+$routeParams.aid,
+				headers: {
+					'Content-Type': 'application/json'
+					}
+				}).then(function successCallback(response) {
+					$scope.assetname = response.data.assetName;
+					$scope.role = $rootScope.user[0];
+		  			$scope.login = $rootScope.user[1];
+				    if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+				    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+				    		$scope.hide = false;
+				    }else{
+				    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+				    		$scope.hide = true;
+				    }
+			});
+			clearInterval(intervalID);
+		}
+	},10);
+
+  	
   	
   	$scope.add = function(){
   		$http({
@@ -80,33 +94,41 @@ oilApp.controller('EditOilCtrl',
   	$scope.placeholder = "";
   	var rols = ["ASSET_ADMIN"];
   	checkAuth.check(rols);
-	$http({
-	      method: 'GET',
-	      url: '/api/assets/'+$routeParams.aid+'/oil_fields/'+$routeParams.oid,
-	      headers: {
-		   'Content-Type': 'application/json'
-		 	}
-	    }).then(function successCallback(response) {
-	    	$scope.role = $rootScope.user[0];
-  				$scope.login = $rootScope.user[1];
-		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
-		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
-		    		$scope.hide = false;
-		    	}else{
-		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
-		    		$scope.hide = true;
-		    	}
-		    $http({
-					method: 'GET',
-					url: '/api/assetname/'+$routeParams.aid,
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function successCallback(response) {
-					$scope.assetname = response.data.assetName;
+
+	var intervalID = setInterval(function(){
+  		if($rootScope.user != undefined){
+  			$http({
+			      method: 'GET',
+			      url: '/api/assets/'+$routeParams.aid+'/oil_fields/'+$routeParams.oid,
+			      headers: {
+				   'Content-Type': 'application/json'
+				 	}
+			    }).then(function successCallback(response) {
+			    	$scope.role = $rootScope.user[0];
+		  				$scope.login = $rootScope.user[1];
+				    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+				    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+				    		$scope.hide = false;
+				    	}else{
+				    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+				    		$scope.hide = true;
+				    	}
+				    $http({
+							method: 'GET',
+							url: '/api/assetname/'+$routeParams.aid,
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						}).then(function successCallback(response) {
+							$scope.assetname = response.data.assetName;
+					});
+			        $scope.rs = response.data;
 			});
-	        $scope.rs = response.data;
-	});
+			clearInterval(intervalID);
+		}
+	},10);
+
+	
 	$scope.assetId = $routeParams.aid;
   	$scope.add = function(){
   		$http({
@@ -128,33 +150,42 @@ oilApp.controller('DeleteOilCtrl',
   	$scope.placeholder = "";
   	var rols = ["ASSET_ADMIN"];
   	checkAuth.check(rols);
-	$http({
-	      method: 'GET',
-	      url: '/api/assets/'+$routeParams.aid+'/oil_fields/'+$routeParams.oid,
-	      headers: {
-		   'Content-Type': 'application/json'
-		 	}
-	    }).then(function successCallback(response) {
-	    	$scope.role = $rootScope.user[0];
-  				$scope.login = $rootScope.user[1];
-		    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
-		    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
-		    		$scope.hide = false;
-		    	}else{
-		    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
-		    		$scope.hide = true;
-		    	}
-		    $http({
-					method: 'GET',
-					url: '/api/assetname/'+$routeParams.aid,
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function successCallback(response) {
-					$scope.assetname = response.data.assetName;
+
+  	var intervalID = setInterval(function(){
+  		if($rootScope.user != undefined){
+  			$http({
+			      method: 'GET',
+			      url: '/api/assets/'+$routeParams.aid+'/oil_fields/'+$routeParams.oid,
+			      headers: {
+				   'Content-Type': 'application/json'
+				 	}
+			    }).then(function successCallback(response) {
+			    	$scope.role = $rootScope.user[0];
+		  				$scope.login = $rootScope.user[1];
+				    	if($scope.role == "ASSET_ADMIN" || $scope.role == "ASSET_VIEW"){
+				    		if($scope.role == "ASSET_VIEW"){ $scope.viewer = true; }
+				    		$scope.hide = false;
+				    	}else{
+				    		if($scope.role == "OIL_VIEW"){ $scope.viewer = true; }
+				    		$scope.hide = true;
+				    	}
+				    $http({
+							method: 'GET',
+							url: '/api/assetname/'+$routeParams.aid,
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						}).then(function successCallback(response) {
+							$scope.assetname = response.data.assetName;
+					});
+			        $scope.oilFieldsName = response.data.oilFieldsName;
 			});
-	        $scope.oilFieldsName = response.data.oilFieldsName;
-	});
+			clearInterval(intervalID);
+		}
+	},10);
+
+
+	
 	$scope.assetId = $routeParams.aid;
 
 	$scope.delete = function(){

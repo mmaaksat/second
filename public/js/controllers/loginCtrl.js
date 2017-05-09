@@ -49,27 +49,34 @@ oilApp.controller('SettingsCtrl',
   	var rols = ["ASSET_ADMIN","ASSET_VIEW","OIL_ADMIN","OIL_VIEW"];
   	checkAuth.check(rols);
   	
-
-  	$http({
-		method: 'GET',
-		url: '/api/user_info',
-		headers: {
-			'Content-Type': 'application/json'
+  	var intervalID = setInterval(function(){
+  		if($rootScope.user != undefined){
+  			$http({
+				method: 'GET',
+				url: '/api/user_info',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(function successCallback(response) {
+				$scope.role = $rootScope.user[0];
+		  		$scope.login = $rootScope.user[1];
+				$scope.rs = response.data;
+				$http({
+							method: 'GET',
+							url: '/api/assetname/'+$routeParams.aid,
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						}).then(function successCallback(response) {
+							$scope.assetname = response.data.assetName;
+							$scope.$apply();
+				});
+			});
+			clearInterval(intervalID);
 		}
-	}).then(function successCallback(response) {
-		$scope.role = $rootScope.user[0];
-  		$scope.login = $rootScope.user[1];
-		$scope.rs = response.data;
-		$http({
-					method: 'GET',
-					url: '/api/assetname/'+$routeParams.aid,
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(function successCallback(response) {
-					$scope.assetname = response.data.assetName;
-		});
-	});
+	},10);
+
+  	
 
 	$scope.add = function(){
 		$http({
