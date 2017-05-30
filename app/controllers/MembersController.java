@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 /**
- * Created by Manas on 26.04.2017.
+ * Created by Max on 26.04.2017.
  */
 public class MembersController extends Controller {
     @Inject

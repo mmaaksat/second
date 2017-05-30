@@ -24,7 +24,7 @@ oilApp.controller('LoginCtrl',
 		        		}
 		        	}
 			    }else{
-			    	$scope.error = "Неправильный имя пользователя и пароль";
+			    	$scope.error = "Wrong username and/or password!";
 			    }	
 			});
     }

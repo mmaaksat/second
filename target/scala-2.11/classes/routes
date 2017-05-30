@@ -1,0 +1,45 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /                           controllers.Assets.versioned(path="/public", file="index.html")
+# An example controller showing a sample home page
+POST    /api/login                                            controllers.LoginController.index
+GET     /api/logout                                           controllers.LoginController.logout
+GET     /api/role                                             controllers.LoginController.getRole
+GET     /api/user_info                                        controllers.LoginController.getUser
+PUT     /api/change_user_data                                 controllers.LoginController.editUser
+GET     /api/assetname/:aid                                   controllers.OilFieldController.getAssetName(aid:Long)
+# An example controller showing how to use dependency injection
+
+GET     /api/assets/:aid/oil_fields/                          controllers.OilFieldController.table(aid:Long)
+POST    /api/assets/:aid/oil_fields/                          controllers.OilFieldController.add(aid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid                      controllers.OilFieldController.edit(aid:Long,oid:Long)
+GET     /api/assets/:aid/oil_fields/:oid                      controllers.OilFieldController.get(aid:Long,oid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid                      controllers.OilFieldController.remove(aid:Long,oid:Long)
+#
+GET     /api/assets/:aid/oil_fields/:oid/scenarios            controllers.ScenarioController.table(aid:Long,oid:Long)
+POST    /api/assets/:aid/oil_fields/:oid/scenarios            controllers.ScenarioController.add(aid:Long,oid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.edit(aid:Long,oid:Long,sid:Long)
+GET     /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.get(aid:Long,oid:Long,sid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid/scenarios/:sid       controllers.ScenarioController.remove(aid:Long,oid:Long,sid:Long)
+#
+GET     /api/assets/:aid/oil_fields/:oid/members                controllers.MembersController.table(aid:Long,oid:Long)
+POST    /api/assets/:aid/oil_fields/:oid/members                controllers.MembersController.add(aid:Long,oid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid/members/:mid           controllers.MembersController.edit(aid:Long,oid:Long,mid:Long)
+GET     /api/assets/:aid/oil_fields/:oid/members/:mid           controllers.MembersController.get(aid:Long,oid:Long,mid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid/members/:mid           controllers.MembersController.remove(aid:Long,oid:Long,mid:Long)
+#
+GET     /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year            controllers.YearController.table(aid:Long,oid:Long,sid:Long)
+POST    /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year            controllers.YearController.add(aid:Long,oid:Long,sid:Long)
+PUT     /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year/:yid       controllers.YearController.edit(aid:Long,oid:Long,sid:Long,yid:Long)
+GET     /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year/:yid       controllers.YearController.get(aid:Long,oid:Long,sid:Long,yid:Long)
+DELETE  /api/assets/:aid/oil_fields/:oid/scenarios/:sid/year/:yid       controllers.YearController.remove(aid:Long,oid:Long,sid:Long,yid:Long)
+#
+
+
+#
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# Map static resources from the /public folder to the /asset URL path
+#GET     /                           controllers.Asset.versioned(path="/public", file="index.html")

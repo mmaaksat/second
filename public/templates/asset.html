@@ -38,13 +38,16 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="table-responsive">
-                                <a href="#!/assets/{{assetId}}/add_oil" class="btn btn-primary" ng-disabled="viewer">Add New Oil Fields</a>
+								<h2>Oil field</h2>
+                                <a href="#!/assets/{{assetId}}/add_oil" class="btn btn-primary" ng-hide="viewer">Add New Oil Fields</a>
+								<br>
+								<br>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Oil field (name)</th>
                                             <th>Best scenario number</th>
-                                            <th>Margin ($)</th>
+                                            <th>Net profit ($)</th>
                                             <th></th>
                                         </tr>
                                     </thead>

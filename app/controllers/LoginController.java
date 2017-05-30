@@ -67,7 +67,7 @@ public class LoginController extends Controller {
                 response.put("role", "failed");
                 response.put("oil_field_id", "failed");
                 response.put("asset_id", "failed");
-                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
+                System.out.println("Failed");
                 return ok(Json.toJson(response));
             }
 

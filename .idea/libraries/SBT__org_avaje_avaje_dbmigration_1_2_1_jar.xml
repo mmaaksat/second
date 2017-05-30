@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.avaje:avaje-dbmigration:1.2.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.avaje/avaje-dbmigration/jars/avaje-dbmigration-1.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.avaje/avaje-dbmigration/srcs/avaje-dbmigration-1.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

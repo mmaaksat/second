@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h1 class="page-header" style="color: white;">
-                            Вход
+                            Sign in
                         </h1>
                     </div>
                 </div>
@@ -18,14 +18,13 @@
                         <form role="form">
 
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="login" placeholder="Логин" required>
+                                <input type="text" class="form-control" ng-model="login" placeholder="Username" required>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" ng-model="password" placeholder="Пароль" required>
+                                <input type="password" class="form-control" ng-model="password" placeholder="Password" required>
                             </div>
-                            <a ng-click="loginClick()" class="btn btn-primary">войти</a>
-                            <h1>{{rs}}</h1>
-                            <h1>{{error}}</h1>
+                            <a ng-click="loginClick()" class="btn btn-primary">Enter</a>
+                            <h1 style = "color:white;">{{error}}</h1>
                         </form>
 
                     </div>

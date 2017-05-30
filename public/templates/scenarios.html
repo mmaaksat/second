@@ -61,8 +61,8 @@
                                     <th>Tax</th>
                                     <th>Inflation</th>
                                     <th>Cost</th>
-                                    <th>Money from bank</th>
-                                    <th>Margin</th>
+                                    <th>Amount of credit</th>
+                                    <th>Net profit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,7 +88,7 @@
                                         <th>Year</th>
                                         <th>Cost ($)</th>
                                         <th>Income ($)</th>
-                                        <th></th>
+                                        <th ng-hide="viewer || admin"></th>
                                     </tr>
                                 </thead>
                                 <tbody >
@@ -96,8 +96,8 @@
                                         <td><a href="#!/assets/{{assetId}}/oil/{{oilId}}/scen/{{scenId}}/year/{{y.id}}">{{y.year}}</a></td>
                                         <td>{{y.yearCosts}}</td>
                                         <td>{{y.income}}</td>
-                                        <td>
-                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/scen/{{scenId}}/edit_year/{{y.id}}" class="btn btn-primary" ng-disabled="viewer || admin">Edit</a>
+                                        <td ng-hide="viewer || admin">
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/scen/{{scenId}}/edit_year/{{y.id}}" class="btn btn-primary" ng-hide="viewer || admin">Edit</a>
                                         </td>
                                     </tr>
                                     

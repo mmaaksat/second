@@ -49,16 +49,18 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <p><a href="#!/assets/{{assetId}}/oil/{{oilId}}/add_scen" ng-disabled="viewer || admin" class="btn btn-primary" >add new scenario</a></p>
+						<h1>Scenarios</h1>
+						<br>
+                        <p><a href="#!/assets/{{assetId}}/oil/{{oilId}}/add_scen" ng-hide="viewer || admin" class="btn btn-primary" >add new scenario</a></p>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Number</th>
-                                        <th>Margin (mln $)</th>
-                                        <th>start year</th>
-                                        <th>end year</th>
-                                        <th></th>
+                                        <th>Net profit ($)</th>
+                                        <th>Start year</th>
+                                        <th>End year</th>
+                                        <th ng-hide="viewer || admin"></th>
                                     </tr>
                                 </thead>
                                 <tbody ng-repeat="t in table">
@@ -67,9 +69,9 @@
                                         <td>{{t.scenarioMargin}}</td>
                                         <td>{{t.startYear}}</td>
                                         <td>{{t.endYear}}</td>
-                                        <td>
-                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/edit_scen/{{t.id}}" class="btn btn-primary" ng-disabled="viewer || admin">Edit</a>
-                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/delete_scen/{{t.id}}" class="btn btn-danger" ng-disabled="viewer || admin">Delete</a>
+                                        <td ng-hide="viewer || admin">
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/edit_scen/{{t.id}}" class="btn btn-primary">Edit</a>
+                                            <a href="#!/assets/{{assetId}}/oil/{{oilId}}/delete_scen/{{t.id}}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>
